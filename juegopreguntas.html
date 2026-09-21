@@ -8,8 +8,7 @@
 <body>
     <div id="contenedor">
         <header>
-            <!--Nombre provisorio-->
-            <h1>Vuelta al casino</h1>
+            <h1>Roll & Deal</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">Página de inicio</a></li>
@@ -21,7 +20,32 @@
                 </ul>
             </nav>
         </header>
-        <main></main>
+        <main>
+            <h1>Ruleta de trivia</h1>
+            <section id="reglas">
+                <h2>Como jugar</h2>
+                <p>El juego consta de 10 rondas. En cada ronda se debera de responder una pregunta de opción múltiple.</p>
+                <p>La pregunta y su categoría es otorgada por una ruleta accionada por el jugador.</p>
+                <p>El jugador cuenta con un tiempo de 15 segundos para responder la pregunta otorgada, por cada respuesta correcta se suman 100 puntos</p>
+                <p>Si el jugador responde incorrectamente o se le acaba el tiempo, no se le sumaran puntos. Al finalizar las 10 preguntas se mostrara el puntaje final</p>
+            </section>
+            <section id="ruleta">
+                <h2>Ruleta de categorías</h2>
+                <p id="categoría">Categoría: todavía no seleccionada</p>
+                <button id="girar" type="button">Girar ruleta</button>
+            </section>
+            <section id="juego">
+                <h2>Pregunta</h2>
+                <p id="pregunta">Girá la ruleta para comenzar.</p>
+                <div id="respuestas">
+                </div>
+                <p id="tiempo">Tiempo: 15</p>
+                <p id="puntaje">Puntaje: 0</p>
+                <p id="ronda">Ronda: 1 de 10</p>
+                <p id="Resultado"></p>
+                <button id="siguiente" type="button">Siguiente ronda</button>
+            </section>
+        </main>
         <footer></footer>
     </div>
 <script src="js/juegopreguntas.js"></script>
