@@ -83,3 +83,42 @@ elementosDados.forEach((dado, i) => {
 });
 
 // tirar los dados
+
+btnTirar.addEventListener ("click", () => {
+    tirarDados();
+});
+
+//funcion que tira todos los dados que NO estén guardados
+function tirarDados() {
+
+//no deja superar las 3 tiradas
+if (tiradas >= 3) {
+    return;
+}
+
+//recorre los cinco dados
+dados.forEach((dado, i) => {
+
+//solo se vuelve a tirar los dados que no están guardados
+if (!dadosGuardados[i]) {
+    let posicion = Math.floor(Math.random()* caras.lenght);
+
+    dados[i] = caras[posicion];
+
+    elementosDados[i].src = 
+    "img/poker/dado-" + dados[i] + ".png";
+    }
+});
+tiradas++;
+
+textoTiradas.innerText =
+"Tiradas: " + tiradas + " /3";
+
+//después de cada tirada se comprueban las combinaciones
+mostrarCombinaciones();
+
+//al llegar a la tercera tirada ya no se pueden tirar más dados
+if (tiradas === 3) {
+    btnTirar.disabled = true;
+}
+}
