@@ -1,4 +1,8 @@
-// caras de los dados
+// ==============================
+// VARIABLES DEL JUEGO
+// ==============================
+
+// caras posibles de los dados
 let caras = ["9", "10", "J", "Q", "K", "A"];
 
 // valores default de los dados
@@ -47,14 +51,20 @@ let valoresCombinaciones = {
     "Un par": 5,
     "Sin combinación": 20
 };
+// ==============================
+// ELEMENTOS HTML
+// ==============================
 
-// Elementos HTML
 const btnTirar = document.querySelector("#tirar");
 const btnReiniciar = document.querySelector("#reiniciar");
 
 let textoTurno = document.querySelector("#turno");
 let textoTiradas = document.querySelector("#tiradas");
 let textoResultado = document.querySelector("#resultado");
+
+// ==============================
+// HACER CLIC EN LOS DADOS
+// ==============================
 
 // al hacer click en un dado, se guarda o se vuelve a liberar
 
@@ -82,7 +92,9 @@ elementosDados.forEach((dado, i) => {
     });
 });
 
-// tirar los dados
+// ==============================
+// TIRAR LOS DADOS
+// ==============================
 
 btnTirar.addEventListener ("click", () => {
     tirarDados();
@@ -120,5 +132,196 @@ mostrarCombinaciones();
 //al llegar a la tercera tirada ya no se pueden tirar más dados
 if (tiradas === 3) {
     btnTirar.disabled = true;
+    }
 }
+
+// ==============================
+// CONTAR LAS CARAS
+// ==============================
+//cuenta cuantas veces aparece cada cara en los dados
+function contarDados() {
+    let cantidades = [];
+
+    dados.forEach(function(dado) {
+        let repetido = false;
+
+        for (let i = 0; i < cantidades.length; i++) {
+            if (cantidades[i][0] === dado) {
+                cantidades[i][1]++;
+                repetido = true;
+            }
+        }
+
+        if (repetido === false) {
+            cantidades.push([dado, 1]);
+        }
+    });
+
+    let valores = [];
+
+    for (let i = 0; i < cantidades.length; i++) {
+        valores.push(cantidades[i][1]);
+    }
+
+    return valores;
+}
+
+// ==============================
+// DETECTAR COMBINACIONES
+// ==============================
+
+//devuelve todas las combinaciones que el jugador puede seleccionar
+function detectarCombinaciones() {
+
+    let valores = contarDados();
+
+    let combinaciones = [];
+
+    let hayCinco = false;
+    let hayCuatro = false;
+    let hayTres = false;
+    let cantidadPares = 0;
+
+    for (let i = 0; i < valores.length; i++) {
+
+        if (valores[i] === 5) {
+            hayCinco = true;
+        }
+
+        if (valores[i] === 4) {
+            hayCuatro = true;
+        }
+
+        if (valores[i] === 3) {
+            hayTres = true;
+        }
+
+        if (valores[i] === 2) {
+            cantidadPares++;
+        }
+    }
+
+    if (hayCinco) {
+        combinaciones.push("Cinco iguales");
+    }
+
+    if (hayCuatro) {
+        combinaciones.push("Póker");
+    }
+
+    if (hayTres && cantidadPares === 1) {
+        combinaciones.push("Full house");
+    }
+
+    if (hayTres) {
+        combinaciones.push("Trío");
+    }
+
+    if (cantidadPares === 2) {
+        combinaciones.push("Dos pares");
+    }
+
+    if (cantidadPares === 1) {
+        combinaciones.push("Un par");
+    }
+
+    return combinaciones;
+}
+// ==============================
+// DETECTAR ESCALERA
+// ==============================
+
+// Las dos escaleras posibles son:
+// 9 - 10 - J - Q - K
+// 10 - J - Q - K - A
+
+function esEscalera() {
+    let orden = ["9","10","J","Q","K","A"];
+
+    let posiciones = dados.map(dado => {
+        //return orden.indexOf(dado);
+    });
+    posiciones.sort((a,b) => a-b);
+
+    let primeraEscalera = [0,1,2,3,4];
+    let segundaEscalera = [1,2,3,4,5];
+
+    if (
+        JSON.stringify(posiciones) ===
+        JSON.stringify(primeraEscalera)
+    ) {
+        return true;
+    }
+    if (
+        JSON.stringify(posiciones) ===
+        JSON.stringify(segundaEscalera)
+    ) {
+        return true;
+    }
+
+    return false;
+}
+// ==============================
+// MOSTRAR COMBINACIONES
+// ==============================
+
+//ilumina las filas de la tabla que el jugador puede elegir
+function mostrarCombinaciones() {
+    limpairCombinaciones();
+
+    let combinaciones = detectarCombinaciones();
+
+    combinaciones.forEach(combinacion => {
+        
+        if (combinacion === "Cinco iguales") {
+            document.querySelector("#cincoIguales")
+            .classList.add("disponible")
+        }
+        if (combinacion === "Cuatro iguales") {
+            document.querySelector("#cuatroIguales")
+                .classList.add("disponible");
+        }
+
+        if (combinacion === "Full House") {
+            document.querySelector("#fullHouse")
+                .classList.add("disponible");
+        }
+
+        if (combinacion === "Escalera") {
+            document.querySelector("#escalera")
+                .classList.add("disponible");
+        }
+
+        if (combinacion === "Tres iguales") {
+            document.querySelector("#tresIguales")
+                .classList.add("disponible");
+        }
+
+        if (combinacion === "Dos pares") {
+            document.querySelector("#dosPares")
+                .classList.add("disponible");
+        }
+
+        if (combinacion === "Un par") {
+            document.querySelector("#unPar")
+                .classList.add("disponible");
+        }
+
+        if (combinacion === "Sin combinación") {
+            document.querySelector("#sinCombinacion")
+                .classList.add("disponible");
+        }
+    });
+}
+
+// ==============================
+// LIMPIAR ILUMINACIÓN
+// ==============================
+
+//saca la clase de las filas que estaban disponibles
+function limpairCombinaciones() {
+    //let filas = document.querySelectorAll("#combinaciones")
+    filas.forEach(fila => {
+        fila.classList.remove("disponible");
+    });
 }
