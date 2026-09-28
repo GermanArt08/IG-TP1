@@ -2,17 +2,17 @@
 // VARIABLES DEL JUEGO
 // ==============================
 
-// caras posibles de los dados
+//caras posibles de los dados
 let caras = ["9", "10", "J", "Q", "K", "A"];
 
-// valores default de los dados
+//valores default de los dados
 let dados = ["9","9","9","9","9"];
 
 let dadosGuardados = [false,false,false,false,false];
 
 let jugadorActual = 1;
 let ronda = 1;
-// cantidad de tiradas del jugador actual
+//cantidad de tiradas del jugador actual
 let tiradas = 0;
 
 const elementosDados = document.querySelectorAll(".dado");
@@ -40,7 +40,7 @@ let puntajes = {
         "Sin combinación": 0
     }
 };
-// Valores de cada combinación
+//valores de cada combinación
 let valoresCombinaciones = {
     "Cinco iguales": 50,
     "Cuatro iguales": 35,
@@ -239,7 +239,7 @@ function esEscalera() {
     let orden = ["9","10","J","Q","K","A"];
 
     let posiciones = dados.map(dado => {
-        //return orden.indexOf(dado);
+        return orden.indexOf(dado); //OJO index0f
     });
     posiciones.sort((a,b) => a-b);
 
@@ -458,3 +458,136 @@ function calcularTotal(jugador) {
     });
     return total;
 }
+// ==============================
+// PASAR AL SIGUIENTE TURNO
+// ==============================
+
+function pasarTurno() {
+    //cambia de jugador
+    if(jugadorActual===1) {
+        jugadorActual = 2;
+    } else {
+        //cuando termina el jugador 2, aumenta la ronda
+        jugadorActual = 1;
+        ronda++;
+    }
+    //si ya terminaron las 10 rondas
+    if (ronda > 10) {
+        terminarJuego();
+        return;
+    }
+    iniciarTurno();
+}
+// ==============================
+// INICIAR TURNO
+// ==============================
+
+function iniciarTurno() {
+tiradas = 0;
+dados = ["9", "9", "9", "9", "9"];
+
+dadosGuardados = [false, false, false, false, false];
+
+//reinicia las imagenes de los dados
+elementosDados.forEach((dado,i)=> {
+    dado.src="img/poker/dado-9.png";
+    dado.classList.remove("guardado");
+});
+
+//quita la iluminacion de las combinaciones
+limpiarCombinaciones();
+
+//habilita nuevamente el boton de tirar
+btnTirar.disabled = false;
+textoTiradas.innerText =
+"Tiradas: 0 / 3";
+
+textoTurno.innerText =
+"Turno del Jugador " + jugadorActual + " - Ronda " + " / 10";
+}
+// ==============================
+// TERMINAR JUEGO
+// ==============================
+
+function terminarJuego() {
+    //desactiva las tiradas
+    btnTirar.disabled = true;
+
+    //quita las combinaciones seleccionables
+    limpiarCombinaciones();
+
+    let totalJugador1 = calcularTotal(1);
+    let totalJugador2 = calcularTotal(2);
+
+    let mensaje;
+
+    if (totalJugador1 > totalJugador2) {
+        mensaje =
+        "¡Ganó el Jugador 1! " +
+            totalJugador1 +
+            " puntos contra " +
+            totalJugador2;
+    } else if (totalJugador2 > totalJugador1) {
+        mensaje =
+            "¡Ganó el Jugador 2! " +
+            totalJugador2 +
+            " puntos contra " +
+            totalJugador1;
+    } else {
+        mensaje =
+            "¡Empate! Ambos jugadores obtuvieron " +
+            totalJugador1 +
+            " puntos.";
+    }
+    textoTurno.innerText = "Juego terminado";
+
+    textoResultado.innerText = mensaje;
+
+    //Muestra el botón para jugar nuevamente
+    btnReiniciar.style.display = "inline-block";
+}
+// ==============================
+// REINICIAR
+// ==============================
+
+btnReiniciar.addEventListener("click", () => {
+    //reinicia todos los puntajes
+    puntajes = {
+        jugador1: {
+            "Cinco iguales": 0,
+            "Cuatro iguales": 0,
+            "Full House": 0,
+            "Escalera": 0,
+            "Tres iguales": 0,
+            "Dos pares": 0,
+            "Un par": 0,
+            "Sin combinación": 0
+        },
+        jugador2: {
+            "Cinco iguales": 0,
+            "Cuatro iguales": 0,
+            "Full House": 0,
+            "Escalera": 0,
+            "Tres iguales": 0,
+            "Dos pares": 0,
+            "Un par": 0,
+            "Sin combinación": 0
+        }
+    };
+    jugadorActual = 1;
+    ronda = 1;
+    tiradas = 0;
+
+    actualizarTabla();
+
+    textoResultado.innerText = "";
+
+    btnReiniciar.style.display = "none";
+
+    iniciarTurno();
+});
+// ==============================
+// INICIAR EL JUEGO
+// ==============================
+btnReiniciar.style.display = "none";
+iniciarTurno();
