@@ -267,7 +267,7 @@ function esEscalera() {
 
 //ilumina las filas de la tabla que el jugador puede elegir
 function mostrarCombinaciones() {
-    limpairCombinaciones();
+    limpiarCombinaciones();
 
     let combinaciones = detectarCombinaciones();
 
@@ -319,9 +319,142 @@ function mostrarCombinaciones() {
 // ==============================
 
 //saca la clase de las filas que estaban disponibles
-function limpairCombinaciones() {
-    //let filas = document.querySelectorAll("#combinaciones")
+function limpiarCombinaciones() {
+    let filas = document.querySelectorAll("#combinaciones") //OJO HTML
     filas.forEach(fila => {
         fila.classList.remove("disponible");
     });
+}
+// ==============================
+// SELECCIONAR UNA COMBINACIÓN
+// ==============================
+
+//cada fila de la tabla puede ser seleccionada
+let filasCombinaciones = 
+document.querySelectorAll("#combinaciones"); //OJO HTML
+
+filasCombinaciones.forEach(fila => {
+    fila.addEventListener("click", () => {
+        //solamente se puede elegir una fila iluminada
+        if (!fila.classList.contains("disponible")) { //OJO .CONTAINS
+            return;
+        }
+        let combinacion = fila.dataset.combinacion; //OJO DATASET
+
+        seleccionarCombinacion(combinacion);
+    });
+});
+
+// ==============================
+// REGISTRAR COMBINACIÓN
+// ==============================
+
+//suma 1 a a combinavion del jugador actual
+function seleccionarCombinacion(combinacion) {
+    if(jugadorActual === 1) {
+        puntajes.jugador1[combinacion]++;
+    } else {
+        puntajes.jugador2[combinacion]++;
+    }
+
+    //actualiza el numero de la tabla
+    actualizarTabla();
+
+    textoResultado.innerText =
+    "El Jugador " + jugadorActual + " consiguió " + combinacion;
+
+    //despues de elegir una combinacion termina el turno
+    pasarTurno();
+}
+
+// ==============================
+// ACTUALIZAR TABLA
+// ==============================
+
+//actualiza las cantidades de combinaciones de cada jugador
+function actualizarTabla() {
+    document.querySelector("#j1-cinco").innerText =
+    puntajes.jugador1["Cinco iguales"];
+        document.querySelector("#j2-cinco").innerText =
+        puntajes.jugador2["Cinco iguales"];
+
+
+    document.querySelector("#j1-cuatro").innerText =
+        puntajes.jugador1["Cuatro iguales"];
+
+    document.querySelector("#j2-cuatro").innerText =
+        puntajes.jugador2["Cuatro iguales"];
+
+
+    document.querySelector("#j1-full").innerText =
+        puntajes.jugador1["Full House"];
+
+    document.querySelector("#j2-full").innerText =
+        puntajes.jugador2["Full House"];
+
+
+    document.querySelector("#j1-escalera").innerText =
+        puntajes.jugador1["Escalera"];
+
+    document.querySelector("#j2-escalera").innerText =
+        puntajes.jugador2["Escalera"];
+
+
+    document.querySelector("#j1-tres").innerText =
+        puntajes.jugador1["Tres iguales"];
+
+    document.querySelector("#j2-tres").innerText =
+        puntajes.jugador2["Tres iguales"];
+
+
+    document.querySelector("#j1-dos").innerText =
+        puntajes.jugador1["Dos pares"];
+
+    document.querySelector("#j2-dos").innerText =
+        puntajes.jugador2["Dos pares"];
+
+
+    document.querySelector("#j1-par").innerText =
+        puntajes.jugador1["Un par"];
+
+    document.querySelector("#j2-par").innerText =
+        puntajes.jugador2["Un par"];
+
+
+    document.querySelector("#j1-bust").innerText =
+        puntajes.jugador1["Sin combinación"];
+
+    document.querySelector("#j2-bust").innerText =
+        puntajes.jugador2["Sin combinación"];
+
+
+    // Actualiza los puntajes totales
+    document.querySelector("#total-j1").innerText =
+        calcularTotal(1);
+
+    document.querySelector("#total-j2").innerText =
+        calcularTotal(2);
+}
+
+// ==============================
+// CALCULAR PUNTAJE TOTAL
+// ==============================
+
+//multiplica la cantidad de veces que consiguió cada combinación
+//por el valor correspondiente de esa combiancion
+function calcularTotal(jugador) {
+    let datos;
+
+    if (jugador === 1) {
+        datos = puntajes.jugador1;
+    } else {
+        datos = puntajes.jugador2;
+    }
+    let total = 0;
+    Object.keys(datos).forEach(combinacion => { //OJO DATOS
+        total +=
+            datos[combinacion] *
+            valoresCombinaciones[combinacion];
+    });
+    return total;
 }
