@@ -20,23 +20,19 @@
                 </ul>
             </nav>
         </header>
-        <main>
+        <main id="paginaDados">
             <h1>🎲Dados Póker🎲</h1>
-            <section id="reglas">
-                <h2>Objetivo</h2>
-                <p>El objetivo del juego de Dados Póker es sumar puntos lanzando los dados y formando ciertas combinaciones. El juego se juega con cinco dados de seis caras. Los dados utilizados en el juego de dados de póker tienen opciones de cartas (9, 10, J, K, Q, A) en lugar de números.</p>
-                <h2>Desarrollo del juego</h2>
-                <p>Cada jugador tiene 10 turnos para sumar puntos. En cada turno, puede lanzar los dados hasta tres veces. No es necesario lanzar los dados exactamente tres veces. Si ha logrado una combinación anteriormente, puede anunciarla y pasar el turno al siguiente jugador. Hay un total de 8 combinaciones posibles, y cada combinación se puede usar tantas veces como se desee, con el objetivo de obtener la mayor puntuación posible al final.</p>
-            </section>
-
-            <p id="turno">
-                Turno del Jugador 1 - Ronda 1 / 10
-            </p>
-
-            <!-- DADOS -->
-            <section id="zonaDados">
-                <h2>Dados</h2>
-                <div id="dados">
+            <p id="turno">Ingresen los nombres para poder comenzar</p>
+            <div id="columnasJuego">
+            <section id="zonaDados" class="panelJuego">
+                <h2>Mesa de dados</h2>
+                <form id="formularioNombres"><label for="nombre1">Nombre del jugador 1</label><input id="nombre1" type="text" maxlength="12" required>
+                <label for="nombre2">Nombre del jugador 2 (máximo 12 caracteres)</label>
+                <input id="nombre2" type="text" maxlength="12" required>
+                <button id="enviarNombres" type="submit" disabled>Enviar</button>
+            </form>
+            <p id="mensajeJuego">Completen los dos nombre para continuar.</p>
+            <div id="dados">
                     <img class="dado"
                         id="dado0"
                         src="img/dados-poker/dado-9.png"
@@ -61,149 +57,46 @@
                         id="dado4"
                         src="img/dados-poker/dado-9.png"
                         alt="Dado 9">
+            </div>
+            <p id="ayudaDados">Después de tirar, podes hacer clic en los dados que quieras conservar.</p>
+            <p id="tiradas">Tiradas: 0 / 3</p>
 
-                </div>
-                <p>
-                    Hacé clic sobre un dado para guardarlo.
-                </p>
-                <p id="tiradas">
-                    Tiradas: 0 / 3
-                </p>
-                <button id="tirar">
-                    Tirar dados
-                </button>
+            <div id="botonesJuego">
+                <button id="comenzar" type="button" disabled>Comenzar a jugar</button>
+                <button id="reiniciar" type="button" hidden>Reiniciar</button>
+            </div>
+            <p id="resultado"></p>
             </section>
-
-
-            <!-- RESULTADO DE LA TIRADA -->
-            <section>
-                <h2>Resultado</h2>
-                <p id="resultado">
-                    Tirar los dados para comenzar.
-                </p>
-            </section>
-
-            <!-- TABLA DE COMBINACIONES -->
-            <section>
-
-                <h2>Combinaciones</h2>
-                <p>Las combinaciones disponibles se iluminarán después de tirar. Hacé clic sobre una para elegirla.
-                </p>
-
-
-                        <!-- TOTALES -->
-
-                        <tr>
-
-                            <td colspan="2">
-                                Puntaje total
-                            </td>
-
-                            <td id="total-j1">
-                                0
-                            </td>
-
-                            <td id="total-j2">
-                                0
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </section>
-
-
-            <!-- RESULTADO FINAL -->
-
-            <section id="final">
-                <h2>Resultado final</h2>
-                <p id="resultadoFinal"></p>
-
-                <button id="reiniciar">
-                    Jugar nuevamente
-                </button>
-            </section>
-
-
-                <section id="combinaciones">
-                    <h2>Combinaciones</h2>
+            <section id="combinaciones" class="panelJuego">
+                    <h2>Combinaciones y puntajes</h2>
                     <div id="listaCombinaciones">
-                        <div id="encabezadoCombinaciones">
-                            <p>Combinación</p>
-                            <p>Valor</p>
-                            <p>Jugador 1</p>
-                            <p>Jugador 2</p>
+                        <div id="encabezadoCombinaciones" class="filaCombinacion">
+                            <p>Combinación</p><p>Valor</p><p id="encabezadoJ1" class="columnaJ1">Jugador 1</p><p id="encabezadoJ2" class="columnaJ2">Jugador 2</p>
                         </div>
-                        <!--j1 y j2 representan Jugador 1 y Jugador 2-->
-                        <div class="combinacion" id="cincoIguales"
-                            data-combinacion="Cinco iguales">
-                            <p>Cinco iguales</p>
-                            <p>50</p>
-                            <p id="j1-cinco">0</p>
-                            <p id="j2-cinco">0</p>
-                        </div>
-
-                        <div class="combinacion" id="cuatroIguales"
-                            data-combinacion="Cuatro iguales">
-                            <p>Cuatro iguales</p>
-                            <p>35</p>
-                            <p id="j1-cuatro">0</p>
-                            <p id="j2-cuatro">0</p>
-                        </div>
-
-                        <div class="combinacion" id="fullHouse"
-                            data-combinacion="Full House">
-                            <p>Full House</p>
-                            <p>30</p>
-                            <p id="j1-full">0</p>
-                            <p id="j2-full">0</p>
-                        </div>
-
-                        <div class="combinacion" id="escalera"
-                            data-combinacion="Escalera">
-                            <p>Escalera</p>
-                            <p>40</p>
-                            <p id="j1-escalera">0</p>
-                            <p id="j2-escalera">0</p>
-                        </div>
-
-                        <div class="combinacion" id="tresIguales"
-                            data-combinacion="Tres iguales">
-                            <p>Tres iguales</p>
-                            <p>15</p>
-                            <p id="j1-tres">0</p>
-                            <p id="j2-tres">0</p>
-                        </div>
-
-                        <div class="combinacion" id="dosPares"
-                            data-combinacion="Dos pares">
-                            <p>Dos pares</p>
-                            <p>10</p>
-                            <p id="j1-dos">0</p>
-                            <p id="j2-dos">0</p>
-                        </div>
-
-                        <div class="combinacion" id="unPar"
-                            data-combinacion="Un par">
-                            <p>Un par</p>
-                            <p>5</p>
-                            <p id="j1-par">0</p>
-                            <p id="j2-par">0</p>
-                        </div>
-
-                        <div class="combinacion" id="sinCombinacion"
-                            data-combinacion="Sin combinación">
-
-                            <p>Sin combinación</p>
-                            <p>20</p>
-                            <p id="j1-bust">0</p>
-                            <p id="j2-bust">0</p>
-                        </div>
+                        <div class="combinacion filaCombinacion" id="cincoIguales"><p>Cinco iguales</p><p>50</p><p id="j1-cinco" class="columnaJ1">0</p><p id="j2-cinco" class="columnaJ2">0</p></div>
+                        <div class="combinacion filaCombinacion" id="cuatroIguales"><p>Cuatro iguales</p><p>35</p><p id="j1-cuatro" class="columnaJ1">0</p><p id="j2-cuatro" class="columnaJ2">0</p></div>
+                        <div class="combinacion filaCombinacion" id="fullHouse"><p>Full House</p><p>30</p><p id="j1-full" class="columnaJ1">0</p><p id="j2-full" class="columnaJ2">0</p></div>
+                        <div class="combinacion filaCombinacion" id="escalera"><p>Escalera</p><p>40</p><p id="j1-escalera" class="columnaJ1">0</p><p id="j2-escalera" class="columnaJ2">0</p></div>
+                        <div class="combinacion filaCombinacion" id="tresIguales"><p>Tres iguales</p><p>15</p><p id="j1-tres" class="columnaJ1">0</p><p id="j2-tres" class="columnaJ2">0</p></div>
+                        <div class="combinacion filaCombinacion" id="dosPares"><p>Dos pares</p><p>10</p><p id="j1-dos" class="columnaJ1">0</p><p id="j2-dos" class="columnaJ2">0</p></div>
+                        <div class="combinacion filaCombinacion" id="unPar"><p>Un par</p><p>5</p><p id="j1-par" class="columnaJ1">0</p><p id="j2-par" class="columnaJ2">0</p></div>
+                        <div class="combinacion filaCombinacion" id="sinCombinacion"><p>Sin combinación</p><p>20</p><p id="j1-bust" class="columnaJ1">0</p><p id="j2-bust" class="columnaJ2">0</p></div>
+                        <div class="filaCombinacion filaTotal"><p>Puntaje total</p><p></p><p id="total-j1" class="columnaJ1">0</p><p id="total-j2" class="columnaJ2">0</p></div>
                     </div>
+                    <p>Después de una tirada, elegí una fila iluminada para sumar ese punto y terminar tu turno.</p>
                 </section>
+                <section id="instrucciones" class="panelJuego">
+                    <h2>Cómo jugar</h2>
+                    <ol>
+                        <li>Cada jugador juega 10 rondas, alternando turnos.</li>
+                        <li>En cada turno podés tirar hasta tres veces.</li>
+                        <li>Después de tirar, hacé clic en los dados que quieras conservar. Podés seleccionar varios.</li>
+                        <li>Elegí una combinación iluminada para anotarla. Suma 1 en esa fila y termina tu turno.</li>
+                        <li>Si usás las tres tiradas sin elegir combinación, un clic más termina el turno sin puntos.</li>
+                    </ol>
+                </section>
+            </div>
+            <!--Agregar cartel final-->
         </main>
         <footer></footer>
     </div>
