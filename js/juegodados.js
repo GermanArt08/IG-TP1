@@ -113,12 +113,13 @@ dados.forEach((dado, i) => {
 
 //solo se vuelve a tirar los dados que no están guardados
 if (!dadosGuardados[i]) {
-    let posicion = Math.floor(Math.random() * caras.lenght);
+    let posicion = Math.floor(Math.random() * caras.length);
 
     dados[i] = caras[posicion];
 
     elementosDados[i].src = 
     "img/dados-poker/dado-" + dados[i] + ".png";
+    elementosDados[i].alt = "Dado " + dados[i];
     }
 });
 tiradas++;
@@ -498,6 +499,7 @@ dadosGuardados = [false, false, false, false, false];
 //reinicia las imagenes de los dados
 elementosDados.forEach((dado,i)=> {
     dado.src="img/dados-poker/dado-9.png";
+    dado.alt = "Dado 9";
     dado.classList.remove("guardado");
 });
 
@@ -510,7 +512,7 @@ textoTiradas.innerText =
 "Tiradas: 0 / 3";
 
 textoTurno.innerText =
-"Turno del Jugador " + jugadorActual + " - Ronda " + " / 10";
+"Turno del Jugador " + jugadorActual + " - Ronda " + ronda + " / 10";
 }
 // ==============================
 // TERMINAR JUEGO

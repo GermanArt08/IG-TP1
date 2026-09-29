@@ -47,5 +47,5 @@ El sistema detecta las combinaciones automáticamente después de cada tirada y 
 # Declaración de uso de IA
 -Germán-
 IA utilizada: ChatGPT versión estándar
-Se usó principalmente para elaborar el desarrollo del funcionamiento de los juegos. En cuanto al Dados Póker, se le explicó las reglas del juego y también incorporamos un link a la página para que tuviera más informaciónen, pero en muchas ocaciones mencionaba código no visto en clase, como .index0f, Object.keys, .dataset, .contains, .checked, etc. Recomendaba utilizar tablas en el HTML pero se decidió reemplazarlas por HOLACOMPLETAR y se les agregó el diseño en CSS. 
+Se usó principalmente para elaborar el desarrollo del funcionamiento de los juegos. En cuanto al Dados Póker, se le explicó las reglas del juego y también incorporamos un link a la página para que tuviera más informaciónen, pero en muchas ocaciones mencionaba código no visto en clase, como .index0f, Object.keys, .dataset, .contains, .checked, etc. Recomendaba utilizar tablas en el HTML pero se decidió reemplazarlas por div y se les agregó el diseño en CSS. 
 Para crear las imágenes de los dados también se usó IA, pero esta vez una herramienta especializada en la creación de imágenes (Sea.art) ya que se intentó con Grok y ChatGPT pero los resultados no fueron los esperados.
