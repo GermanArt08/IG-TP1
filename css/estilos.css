@@ -1,0 +1,33 @@
+/* ESTILOS GENERALES */
+
+/*ESTILOS JUEGO DADOS */
+#encabezadoCombinaciones,
+.combinacion {
+    display: flex;
+}
+
+#encabezadoCombinaciones p:first-child,
+.combinacion p:first-child {
+    width: 40%;
+}
+
+#encabezadoCombinaciones p,
+.combinacion p {
+    width: 20%;
+    margin: 0;
+    padding: 0.5rem;
+}
+.disponible {
+    background-color: yellow;
+    cursor: pointer;
+}
+.dado {
+    width: 6rem;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+.dado.guardado {
+    border: 0.3rem solid #ffcc00;
+    transform: translateY(-1rem);
+}

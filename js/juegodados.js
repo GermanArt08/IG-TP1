@@ -84,10 +84,10 @@ elementosDados.forEach((dado, i) => {
         dadosGuardados[i] = !dadosGuardados[i];
 
         if (dadosGuardados[i]) {
-            dado.classList.add("#guardado");
+            dado.classList.add("guardado");
         }
         else {
-            dado.classList.remove("#guardado");
+            dado.classList.remove("guardado");
         }
     });
 });
@@ -113,12 +113,12 @@ dados.forEach((dado, i) => {
 
 //solo se vuelve a tirar los dados que no están guardados
 if (!dadosGuardados[i]) {
-    let posicion = Math.floor(Math.random()* caras.lenght);
+    let posicion = Math.floor(Math.random() * caras.lenght);
 
     dados[i] = caras[posicion];
 
     elementosDados[i].src = 
-    "img/poker/dado-" + dados[i] + ".png";
+    "img/dados-poker/dado-" + dados[i] + ".png";
     }
 });
 tiradas++;
@@ -206,7 +206,7 @@ function detectarCombinaciones() {
     }
 
     if (hayCuatro) {
-        combinaciones.push("Póker");
+        combinaciones.push("Cuatro Iguales");
     }
 
     if (hayTres && cantidadPares === 1) {
@@ -214,7 +214,7 @@ function detectarCombinaciones() {
     }
 
     if (hayTres) {
-        combinaciones.push("Trío");
+        combinaciones.push("Tres iguales");
     }
 
     if (cantidadPares === 2) {
@@ -223,6 +223,13 @@ function detectarCombinaciones() {
 
     if (cantidadPares === 1) {
         combinaciones.push("Un par");
+    }
+    if (esEscalera()) {
+    combinaciones.push("Escalera");
+    }
+
+    if (combinaciones.length === 0) {
+        combinaciones.push("Sin combinación");
     }
 
     return combinaciones;
@@ -320,7 +327,7 @@ function mostrarCombinaciones() {
 
 //saca la clase de las filas que estaban disponibles
 function limpiarCombinaciones() {
-    let filas = document.querySelectorAll("#combinaciones") //OJO HTML
+    let filas = document.querySelectorAll(".combinacion") //OJO HTML
     filas.forEach(fila => {
         fila.classList.remove("disponible");
     });
@@ -331,7 +338,7 @@ function limpiarCombinaciones() {
 
 //cada fila de la tabla puede ser seleccionada
 let filasCombinaciones = 
-document.querySelectorAll("#combinaciones"); //OJO HTML
+document.querySelectorAll(".combinacion"); //OJO HTML
 
 filasCombinaciones.forEach(fila => {
     fila.addEventListener("click", () => {
@@ -490,7 +497,7 @@ dadosGuardados = [false, false, false, false, false];
 
 //reinicia las imagenes de los dados
 elementosDados.forEach((dado,i)=> {
-    dado.src="img/poker/dado-9.png";
+    dado.src="img/dados-poker/dado-9.png";
     dado.classList.remove("guardado");
 });
 
@@ -541,7 +548,7 @@ function terminarJuego() {
     }
     textoTurno.innerText = "Juego terminado";
 
-    textoResultado.innerText = mensaje;
+    document.querySelector("#resultadoFinal").innerText = mensaje;
 
     //Muestra el botón para jugar nuevamente
     btnReiniciar.style.display = "inline-block";
