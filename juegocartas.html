@@ -36,24 +36,29 @@
                 <h3>Desarrollo de la partida</h3>
                 <p>Al comenzar la partida, el jugador recibe cartas. El jugador puede elegir pedir una nueva carta o plantarse.</p>
                 <p>Si el jugador supera el valor de 21 con sus cartas pierde, si decide plantarse se comparan sus cartas con las del crupier y el que este mas cerca o si alguno llego a 21 gana.</p>
+                <p>El crupier va a pedir cartas hasta alcanzar al menos los 17 puntos. Una de las cartas que le toca permanece oculta durante el turno del jugador</p>
             </section>
 
             <section id="mesa">
                 <h2>Crupier</h2>
                 <div id="cartas-crupier">
-                    <p>Las cartas del crupier aparecerán acá</p>
-                    </div>
+                </div>
+                <p id="puntaje-crupier">
+                    Puntaje del crupier: 0
+                </p>
 
                 <h2>Jugador</h2>
 
                 <div id="cartas-jugador">
-                    <p>Tus cartas aparecerán acá</p>
                 </div>
-                <p>Puntaje del jugador: 0</p>
+                <p id="puntaje-jugador">
+                    Puntaje del jugador: 0
+                </p>
+                <p id="resultado-blackjack"></p>
 
-                <button type="button">Pedir carta</button>
-                <button type="button">Plantarse</button>
-                <button type="button">Nueva Partida</button>
+                <button id="pedir" type="button">pedir carta</button>
+                <button id="plantarse" type="button">Plantarse</button>
+                <button id="nueva-partida" type="button">Nueva Partida</button>
             </section>
         </main>
         <footer></footer>

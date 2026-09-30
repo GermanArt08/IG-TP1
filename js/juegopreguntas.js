@@ -68,4 +68,55 @@ function mostrarRespuestas(datosPregunta) {
     }
 }
 
-/comprobación de la respuesta y puntaje
+//comprobación de la respuesta y puntaje
+function comprobarRespuesta(respuestaElegida) {
+    if (respondida == false) {
+        respondida = true;
+        clearInterval(temporizador);
+        if (respuestaElegida == respuestaCorrecta) {
+            puntaje += 100;
+            resultado.innerText = "¡Respuesta correcta!";
+        } else {
+            resultado.innerHTML = 
+                "Respuesta incorrecta. La respuesta correcta era: " 
+                + respuestaCorrecta;
+        }
+        puntajeTexto.innerText = "Puntaje: " + puntaje;       
+    }
+}
+
+//temporizador de cada pregunta
+function iniciarTiempo(){
+    clearInterval(temporizador);
+    tiempo = 15;
+    tiempoTexto.innerText = "Tiempo: " + tiempo;
+    temporizador = setInterval(function () {
+        tiempo--;
+        tiempoTexto.innertext = "Tiempo: " + tiempo;
+        if (tiempo <= 0) {
+            clearInterval(temporizador);
+            respondida = true;
+            resultado.innerText = "Se terminó el tiempo.";
+        }
+    }, 1000);
+}
+
+//control de las rondas y finalización del juego
+function siguienteRonda() {
+    if (respondida == true) {
+        if (ronda < 10) {
+            ronda ++;
+            rondaTexto.innerText = "Ronda: " + ronda + "de 10";
+            categoría.innerText = "Categoría aún no seleccionada";
+            pregunta.innerText = "Gira la ruleta para continuar.";
+            respuestas.innerHTML = "";
+            resultado.innerText = "";
+        } else {
+            respuestas.innerHTML = "";
+            pregunta.innerText = "¡Juego finalizado!";
+            resultado.innerText = "Puntaje final: " + puntaje + "puntos."
+        }
+    } else {
+        resultado.innerText = "Primero debes de responder la pregunta.";
+    }
+}
