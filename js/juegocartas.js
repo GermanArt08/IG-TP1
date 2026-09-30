@@ -68,7 +68,7 @@ function crearMazo() {
 
 //sacar una carta aleatoria del mazo
 function sacarCarta() {
-    let posicion = math.floor(math.random() * mazo.length);
+    let posicion = Math.floor(Math.random() * mazo.length);
     let carta = mazo[posicion];
     mazo.splice(posicion, 1);
     return carta;
@@ -77,7 +77,7 @@ function sacarCarta() {
 //calcular el puntaje de una mano
 function calcularPuntaje(mano) {
     let puntaje = 0;
-    let cantidades = 0;
+    let cantidadAses= 0;
 
     for (let i = 0; i < mano.length; i++) {
         puntaje += mano[i].puntos;
@@ -188,7 +188,7 @@ function turnoCrupier() {
     //COMPARAR RESULTADOS
     if (puntajeCrupier > 21) {
         finalizarPartida("El crupier se pasó de 21. ¡Ganaste!.");
-    } else if (puntajeJugador > PuntajeCrupier) {
+    } else if (puntajeJugador > puntajeCrupier) {
         finalizarPartida("¡Ganaste la partida!");
     } else if (puntajeJugador < puntajeCrupier) {
         finalizarPartida("Gana el crupier.");
@@ -205,7 +205,7 @@ function finalizarPartida(mensaje) {
 }
 
 //NUEVA PARTIDA
-function NuevaPartida() {
+function nuevaPartida() {
     crearMazo();
 
     cartasJugador = [];
