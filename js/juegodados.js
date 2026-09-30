@@ -25,25 +25,14 @@ let nombresCombinaciones = [
 
 let puntajes = {
     jugador1: {
-        "Cinco iguales": 0,
-        "Cuatro iguales": 0,
-        "Full House": 0,
-        "Escalera": 0,
-        "Tres iguales": 0,
-        "Dos pares": 0,
-        "Un par": 0,
-        "Sin combinación": 0
+        "Cinco iguales": 0, "Cuatro iguales": 0, "Full House": 0,
+        "Escalera": 0, "Tres iguales": 0, "Dos pares": 0,
+        "Un par": 0, "Sin combinación": 0
     },
-
     jugador2: {
-        "Cinco iguales": 0,
-        "Cuatro iguales": 0,
-        "Full House": 0,
-        "Escalera": 0,
-        "Tres iguales": 0,
-        "Dos pares": 0,
-        "Un par": 0,
-        "Sin combinación": 0
+        "Cinco iguales": 0, "Cuatro iguales": 0, "Full House": 0,
+        "Escalera": 0, "Tres iguales": 0, "Dos pares": 0,
+        "Un par": 0, "Sin combinación": 0
     }
 };
 //valores de cada combinación
@@ -150,23 +139,17 @@ if (tiradas >= 3) {
 }
 
 //recorre los cinco dados
-dados.forEach((dado, i) => {
-
-//solo se vuelve a tirar los dados que no están guardados
-if (!dadosGuardados[i]) {
-    let posicion = Math.floor(Math.random() * caras.length);
-
-    dados[i] = caras[posicion];
-
-    elementosDados[i].src = 
-    "img/dados-poker/dado-" + dados[i] + ".png";
-    elementosDados[i].alt = "Dado " + dados[i];
+for (let i = 0; i < dados.length; i++) {
+        if (!dadosGuardados[i]) {
+            let posicion = Math.floor(Math.random() * caras.length);
+            dados[i] = caras[posicion];
+            elementosDados[i].src = "img/dados-poker/dado-" + dados[i] + ".png";
+            elementosDados[i].alt = "Dado " + dados[i];
+        }
     }
-});
 tiradas++;
 
-textoTiradas.innerText =
-"Tiradas: " + tiradas + " /3";
+textoTiradas.innerText = "Tiradas: " + tiradas + " /3";
 
 //después de cada tirada se comprueban las combinaciones
 mostrarCombinaciones();
@@ -187,8 +170,8 @@ function contarDados() {
 
     for (let i=0; 0 < dados.length; i++) {
         for(let j=0; j< caras.length; j++) {
-            if (dados[i] === caras[i]) {
-                cantidades[i]++;
+            if (dados[i] === caras[j]) {
+                cantidades[j]++;
             }
         }
     }
@@ -236,6 +219,28 @@ function detectarCombinaciones() {
 
     return combinaciones;
 }
+//devuelve el nombre asociado al identificador de la fila
+function nombreDeFila(idFila) {
+    if (idFila === "cincoIguales") return "Cinco iguales";
+    if (idFila === "cuatroIguales") return "Cuatro iguales";
+    if (idFila === "fullHouse") return "Full House";
+    if (idFila === "escalera") return "Escalera";
+    if (idFila === "tresIguales") return "Tres iguales";
+    if (idFila === "dosPares") return "Dos pares";
+    if (idFila === "unPar") return "Un par";
+    return "Sin combinación";
+}
+
+function idDeCombinacion(nombre) {
+    if (nombre === "Cinco iguales") return "cincoIguales";
+    if (nombre === "Cuatro iguales") return "cuatroIguales";
+    if (nombre === "Full House") return "fullHouse";
+    if (nombre === "Escalera") return "escalera";
+    if (nombre === "Tres iguales") return "tresIguales";
+    if (nombre === "Dos pares") return "dosPares";
+    if (nombre === "Un par") return "unPar";
+    return "sinCombinacion";
+}
 // ==============================
 // MOSTRAR COMBINACIONES
 // ==============================
@@ -243,50 +248,11 @@ function detectarCombinaciones() {
 //ilumina las filas de la tabla que el jugador puede elegir
 function mostrarCombinaciones() {
     limpiarCombinaciones();
-
-    let combinaciones = detectarCombinaciones();
-
-    combinaciones.forEach(combinacion => {
-        
-        if (combinacion === "Cinco iguales") {
-            document.querySelector("#cincoIguales")
-            .classList.add("disponible")
-        }
-        if (combinacion === "Cuatro iguales") {
-            document.querySelector("#cuatroIguales")
-                .classList.add("disponible");
-        }
-
-        if (combinacion === "Full House") {
-            document.querySelector("#fullHouse")
-                .classList.add("disponible");
-        }
-
-        if (combinacion === "Escalera") {
-            document.querySelector("#escalera")
-                .classList.add("disponible");
-        }
-
-        if (combinacion === "Tres iguales") {
-            document.querySelector("#tresIguales")
-                .classList.add("disponible");
-        }
-
-        if (combinacion === "Dos pares") {
-            document.querySelector("#dosPares")
-                .classList.add("disponible");
-        }
-
-        if (combinacion === "Un par") {
-            document.querySelector("#unPar")
-                .classList.add("disponible");
-        }
-
-        if (combinacion === "Sin combinación") {
-            document.querySelector("#sinCombinacion")
-                .classList.add("disponible");
-        }
-    });
+    combinacionesDisponibles = detectarCombinaciones();
+    for (let i = 0; i < combinacionesDisponibles.length; i++) {
+        let idFila = idDeCombinacion(combinacionesDisponibles[i]);
+        document.querySelector("#" + idFila).classList.add("disponible");
+    }
 }
 
 // ==============================
@@ -295,27 +261,28 @@ function mostrarCombinaciones() {
 
 //saca la clase de las filas que estaban disponibles
 function limpiarCombinaciones() {
-    let filas = document.querySelectorAll(".combinacion") //OJO HTML
-    filas.forEach(fila => {
-        fila.classList.remove("disponible");
-    });
+    let filas = document.querySelectorAll(".combinacion")
+    filas.forEach((fila) => 
+    fila.classList.remove("disponible"));   
+    combinacionesDisponibles = [];
 }
 // ==============================
 // SELECCIONAR UNA COMBINACIÓN
 // ==============================
 
-//cada fila de la tabla puede ser seleccionada
+//cada fila revisa si está entre las combinaciones que salieron en los dados
 let filasCombinaciones = 
 document.querySelectorAll(".combinacion"); //OJO HTML
 
-filasCombinaciones.forEach(fila => {
+filasCombinaciones.forEach((fila) => {
     fila.addEventListener("click", () => {
-        //solamente se puede elegir una fila iluminada
-        if (!fila.classList.contains("disponible")) { //OJO .CONTAINS
-            return;
+        let nombre = nombreDeFila(fila.id);
+        let estaDisponible = false;
+        for (let i =0; i<combinacionesDisponibles.length; i++) {
+            if (combinacionesDisponibles[i] === nombre) estaDisponible = true
         }
-        let combinacion = fila.dataset.combinacion; //OJO DATASET
-
+        if (!juegoIniciado || !estaDisponible)
+        return;
         seleccionarCombinacion(combinacion);
     });
 });
@@ -326,17 +293,10 @@ filasCombinaciones.forEach(fila => {
 
 //suma 1 a a combinavion del jugador actual
 function seleccionarCombinacion(combinacion) {
-    if(jugadorActual === 1) {
-        puntajes.jugador1[combinacion]++;
-    } else {
-        puntajes.jugador2[combinacion]++;
-    }
-
-    //actualiza el numero de la tabla
+    let nombreJugador = "jugador" + jugadorActual;
+    puntajes[nombreJugador][combinacion]++;
     actualizarTabla();
-
-    textoResultado.innerText =
-    "El Jugador " + jugadorActual + " consiguió " + combinacion;
+    textoResultado.innerText = jugadores[jugadorActual - 1] + " consiguió " + combinacion + ".";
 
     //despues de elegir una combinacion termina el turno
     pasarTurno();
@@ -348,67 +308,15 @@ function seleccionarCombinacion(combinacion) {
 
 //actualiza las cantidades de combinaciones de cada jugador
 function actualizarTabla() {
-    document.querySelector("#j1-cinco").innerText =
-    puntajes.jugador1["Cinco iguales"];
-        document.querySelector("#j2-cinco").innerText =
-        puntajes.jugador2["Cinco iguales"];
+    let idsJugador1 = ["j1-cinco", "j1-cuatro", "j1-full", "j1-escalera", "j1-tres", "j1-dos", "j1-par", "j1-bust"];
+    let idsJugador2 = ["j2-cinco", "j2-cuatro", "j2-full", "j2-escalera", "j2-tres", "j2-dos", "j2-par", "j2-bust"];
 
-
-    document.querySelector("#j1-cuatro").innerText =
-        puntajes.jugador1["Cuatro iguales"];
-
-    document.querySelector("#j2-cuatro").innerText =
-        puntajes.jugador2["Cuatro iguales"];
-
-
-    document.querySelector("#j1-full").innerText =
-        puntajes.jugador1["Full House"];
-
-    document.querySelector("#j2-full").innerText =
-        puntajes.jugador2["Full House"];
-
-
-    document.querySelector("#j1-escalera").innerText =
-        puntajes.jugador1["Escalera"];
-
-    document.querySelector("#j2-escalera").innerText =
-        puntajes.jugador2["Escalera"];
-
-
-    document.querySelector("#j1-tres").innerText =
-        puntajes.jugador1["Tres iguales"];
-
-    document.querySelector("#j2-tres").innerText =
-        puntajes.jugador2["Tres iguales"];
-
-
-    document.querySelector("#j1-dos").innerText =
-        puntajes.jugador1["Dos pares"];
-
-    document.querySelector("#j2-dos").innerText =
-        puntajes.jugador2["Dos pares"];
-
-
-    document.querySelector("#j1-par").innerText =
-        puntajes.jugador1["Un par"];
-
-    document.querySelector("#j2-par").innerText =
-        puntajes.jugador2["Un par"];
-
-
-    document.querySelector("#j1-bust").innerText =
-        puntajes.jugador1["Sin combinación"];
-
-    document.querySelector("#j2-bust").innerText =
-        puntajes.jugador2["Sin combinación"];
-
-
-    // Actualiza los puntajes totales
-    document.querySelector("#total-j1").innerText =
-        calcularTotal(1);
-
-    document.querySelector("#total-j2").innerText =
-        calcularTotal(2);
+    for (let i = 0; i < nombresCombinaciones.length; i++) {
+        document.querySelector("#" + idsJugador1[i]).innerText = puntajes.jugador1[nombresCombinaciones[i]];
+        document.querySelector("#" + idsJugador2[i]).innerText = puntajes.jugador2[nombresCombinaciones[i]];
+    }
+    document.querySelector("#total-j1").innerText = calcularTotal(1);
+    document.querySelector("#total-j2").innerText = calcularTotal(2);
 }
 
 // ==============================
@@ -418,26 +326,42 @@ function actualizarTabla() {
 //multiplica la cantidad de veces que consiguió cada combinación
 //por el valor correspondiente de esa combiancion
 function calcularTotal(jugador) {
-    let datos;
-
-    if (jugador === 1) {
-        datos = puntajes.jugador1;
-    } else {
-        datos = puntajes.jugador2;
-    }
+    let datos = puntajes["jugador"+jugador];
     let total = 0;
-    Object.keys(datos).forEach(combinacion => { //OJO DATOS
-        total +=
-            datos[combinacion] *
-            valoresCombinaciones[combinacion];
-    });
+    for (let i = 0; i < nombresCombinaciones.length; i++) {
+        let nombre = nombresCombinaciones[i];
+        total = total + datos[nombre] * valoresCombinaciones[nombre];
+    }
     return total;
+}
+function iluminarTurno() {
+    let columnasJ1 = document.querySelectorAll(".columnaJ1");
+    let columnasJ2 = document.querySelectorAll(".columnaJ2");
+    columnasJ1.forEach((columna) => columna.classList.remove("turnoActivo"));
+    columnasJ2.forEach((columna) => columna.classList.remove("turnoActivo"));
+
+    if (jugadorActual === 1) {
+        columnasJ1.forEach((columna) => columna.classList.add("turnoActivo"));
+    } else {
+        columnasJ2.forEach((columna) => columna.classList.add("turnoActivo"));
+    }
 }
 // ==============================
 // PASAR AL SIGUIENTE TURNO
 // ==============================
 
 function pasarTurno() {
+    limpiarCombinaciones();
+    tiradas = 0;
+    dados = ["9", "9", "9", "9", "9"];
+    dadosGuardados = [false, false, false, false, false];
+    elementosDados.forEach((dado) => {
+        dado.src = "img/dados-poker/dado-9.png";
+        dado.alt = "Dado 9";
+        dado.classList.remove("guardado");
+    });
+    textoTiradas.innerText = "Tiradas: 0 / 3";
+    btnComenzar.innerText = "Tirar dados";
     //cambia de jugador
     if(jugadorActual===1) {
         jugadorActual = 2;
@@ -449,121 +373,102 @@ function pasarTurno() {
     //si ya terminaron las 10 rondas
     if (ronda > 10) {
         terminarJuego();
-        return;
+    } else {
+        iniciarTurno();
     }
-    iniciarTurno();
 }
 // ==============================
 // INICIAR TURNO
 // ==============================
 
 function iniciarTurno() {
-tiradas = 0;
-dados = ["9", "9", "9", "9", "9"];
-
-dadosGuardados = [false, false, false, false, false];
-
-//reinicia las imagenes de los dados
-elementosDados.forEach((dado,i)=> {
-    dado.src="img/dados-poker/dado-9.png";
-    dado.alt = "Dado 9";
-    dado.classList.remove("guardado");
-});
-
-//quita la iluminacion de las combinaciones
-limpiarCombinaciones();
-
-//habilita nuevamente el boton de tirar
-btnTirar.disabled = false;
-textoTiradas.innerText =
-"Tiradas: 0 / 3";
-
-textoTurno.innerText =
-"Turno del Jugador " + jugadorActual + " - Ronda " + ronda + " / 10";
+    textoTurno.innerText = "Turno de " + jugadores[jugadorActual - 1] + " · Ronda " + ronda + " / 10";
+    document.querySelector("#mensajeJuego").innerText = "Tirá los dados para comenzar tu turno.";
+    iluminarTurno();
 }
 // ==============================
 // TERMINAR JUEGO
 // ==============================
 
 function terminarJuego() {
-    //desactiva las tiradas
-    btnTirar.disabled = true;
+    juegoIniciado = false;
+    btnComenzar.hidden = true;
+    btnReiniciar.hidden = true;
 
     //quita las combinaciones seleccionables
     limpiarCombinaciones();
 
     let totalJugador1 = calcularTotal(1);
     let totalJugador2 = calcularTotal(2);
-
     let mensaje;
 
     if (totalJugador1 > totalJugador2) {
-        mensaje =
-        "¡Ganó el Jugador 1! " +
-            totalJugador1 +
-            " puntos contra " +
-            totalJugador2;
+        mensaje = "Ganó " + jugadores[0] + " con " + total1 + " puntos. " + jugadores[1] + " obtuvo " + total2 + ".";
     } else if (totalJugador2 > totalJugador1) {
-        mensaje =
-            "¡Ganó el Jugador 2! " +
-            totalJugador2 +
-            " puntos contra " +
-            totalJugador1;
+        mensaje = "Ganó " + jugadores[1] + " con " + total2 + " puntos. " + jugadores[0] + " obtuvo " + total1 + ".";
     } else {
-        mensaje =
-            "¡Empate! Ambos jugadores obtuvieron " +
-            totalJugador1 +
-            " puntos.";
+        mensaje = "Empate: " + jugadores[0] + " y " + jugadores[1] + " obtuvieron " + total1 + " puntos.";
     }
     textoTurno.innerText = "Juego terminado";
 
     document.querySelector("#resultadoFinal").innerText = mensaje;
-
-    //Muestra el botón para jugar nuevamente
-    btnReiniciar.style.display = "inline-block";
+    document.querySelector("#cartelFinal").hidden = false;
 }
 // ==============================
 // REINICIAR
 // ==============================
 
-btnReiniciar.addEventListener("click", () => {
-    //reinicia todos los puntajes
-    puntajes = {
-        jugador1: {
-            "Cinco iguales": 0,
-            "Cuatro iguales": 0,
-            "Full House": 0,
-            "Escalera": 0,
-            "Tres iguales": 0,
-            "Dos pares": 0,
-            "Un par": 0,
-            "Sin combinación": 0
-        },
-        jugador2: {
-            "Cinco iguales": 0,
-            "Cuatro iguales": 0,
-            "Full House": 0,
-            "Escalera": 0,
-            "Tres iguales": 0,
-            "Dos pares": 0,
-            "Un par": 0,
-            "Sin combinación": 0
-        }
-    };
+function reiniciarPuntajes() {
+    for (let i = 0; i < nombresCombinaciones.length; i++) {
+        puntajes.jugador1[nombresCombinaciones[i]] = 0;
+        puntajes.jugador2[nombresCombinaciones[i]] = 0;
+    }
+    actualizarTabla();
     jugadorActual = 1;
     ronda = 1;
     tiradas = 0;
-
-    actualizarTabla();
-
+    dados = ["9", "9", "9", "9", "9"];
+    dadosGuardados = [false, false, false, false, false];
+    elementosDados.forEach((dado) => {
+        dado.src = "img/dados-poker/dado-9.png";
+        dado.alt = "Dado 9";
+        dado.classList.remove("guardado");
+    });
+    btnComenzar.innerText = "Tirar dados";
+    textoTiradas.innerText = "Tiradas: 0 / 3";
     textoResultado.innerText = "";
+    limpiarCombinaciones();
+}
 
-    btnReiniciar.style.display = "none";
-
+//Reiniciar y Revancha conservan los nombres y empiezan otra partida
+btnReiniciar.addEventListener("click", () => {
+    reiniciarPuntajes();
     iniciarTurno();
 });
-// ==============================
-// INICIAR EL JUEGO
-// ==============================
-btnReiniciar.style.display = "none";
-iniciarTurno();
+
+document.querySelector("#revancha").addEventListener("click", () => {
+    reiniciarPuntajes();
+    document.querySelector("#cartelFinal").hidden = true;
+    juegoIniciado = true;
+    btnComenzar.hidden = false;
+    btnComenzar.innerText = "Tirar dados";
+    btnReiniciar.hidden = false;
+    iniciarTurno();
+});
+
+document.querySelector("#salir").addEventListener("click", () => {
+    reiniciarPuntajes();
+    document.querySelector("#cartelFinal").hidden = true;
+    juegoIniciado = false;
+    btnComenzar.hidden = false;
+    btnComenzar.innerText = "Comenzar a jugar";
+    btnReiniciar.hidden = true;
+    btnComenzar.hidden = false;
+    btnComenzar.disabled = false;
+    document.querySelector("#mensajeJuego").innerText = "Nombres guardados. Presionen Comenzar a jugar cuando estén listos.";
+    textoTurno.innerText = "Nombres: " + jugadores[0] + " y " + jugadores[1];
+});
+
+//estado inicial: se ingresan nombres antes de iniciar el primer turno
+btnComenzar.disabled = true;
+actualizarTabla();
