@@ -14,8 +14,14 @@ let jugadorActual = 1;
 let ronda = 1;
 //cantidad de tiradas del jugador actual
 let tiradas = 0;
+let juegoIniciado = false;
+let jugadores = ["Jugador 1", "Jugador 2"];
+let combinacionesDisponibles = [];
 
-const elementosDados = document.querySelectorAll(".dado");
+let nombresCombinaciones = [
+    "Cinco iguales", "Cuatro iguales", "Full House", "Escalera",
+    "Tres iguales", "Dos pares", "Un par", "Sin combinación"
+];
 
 let puntajes = {
     jugador1: {
@@ -54,13 +60,47 @@ let valoresCombinaciones = {
 // ==============================
 // ELEMENTOS HTML
 // ==============================
-
+const elementosDados = document.querySelectorAll(".dado");
+const btnEnviar = document.querySelector("#enviarNombres");
+const btnComenzar = document.querySelector("#comenzar");
 const btnTirar = document.querySelector("#tirar");
 const btnReiniciar = document.querySelector("#reiniciar");
 
 let textoTurno = document.querySelector("#turno");
 let textoTiradas = document.querySelector("#tiradas");
 let textoResultado = document.querySelector("#resultado");
+let formularioNombres = document.querySelector("#formularioNombres");
+
+//el botón Enviar se habilita cuando los dos nombres tienen texto
+formularioNombres.addEventListener("input", () => {
+    let nombre1 = document.querySelector("#nombre1").value.trim(); //OJO .trim
+    let nombre2 = document.querySelector("#nombre2").value.trim();
+    btnEnviar.disabled = nombre1.length === 0 || nombre2.length === 0;
+});
+
+formularioNombres.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    jugadores[0] = document.querySelector("#nombre1").value.trim();
+    jugadores[1] = document.querySelector("#nombre2").value.trim();
+    document.querySelector("#encabezadoJ1").innerText = jugadores[0];
+    document.querySelector("#encabezadoJ2").innerText = jugadores[1];
+    formularioNombres.hidden = true;
+    btnComenzar.disabled = false;
+    document.querySelector("#mensajeJuego").innerText = "Nombres guardados. Ya pueden comenzar.";
+});
+
+//el mismo botón empieza la partida y después sirve para tirar
+btnComenzar.addEventListener("click", () => {
+    if (juegoIniciado) {
+        tirarDados();
+        return;
+    }
+    juegoIniciado = true;
+    btnComenzar.innerText = "Tirar dados";
+    btnReiniciar.hidden = false;
+    document.querySelector("#mensajeJuego").innerText = "Turno de " + jugadores[0] + ".";
+    iniciarTurno();
+});
 
 // ==============================
 // HACER CLIC EN LOS DADOS
@@ -71,7 +111,7 @@ let textoResultado = document.querySelector("#resultado");
 elementosDados.forEach((dado, i) => {
     dado.addEventListener("click", () => {
         //no se pueden guardar dados antes de realizar una tirada
-        if (tiradas === 0) {
+        if (!juegoIniciado || tiradas === 0 || tiradas >= 3) {
             return;
         }
 
@@ -96,15 +136,16 @@ elementosDados.forEach((dado, i) => {
 // TIRAR LOS DADOS
 // ==============================
 
-btnTirar.addEventListener ("click", () => {
-    tirarDados();
-});
 
 //funcion que tira todos los dados que NO estén guardados
 function tirarDados() {
-
-//no deja superar las 3 tiradas
+    if (!juegoIniciado) {
+        return;
+    }
+//no deja superar las 3 tiradas y si hace un 4to termina el turno sin combinacion
 if (tiradas >= 3) {
+    textoResultado.innerText = jugadores [jugadorActual - 1] + "terminó el turno sin sumar puntos.";
+    pasarTurno();
     return;
 }
 
@@ -132,7 +173,8 @@ mostrarCombinaciones();
 
 //al llegar a la tercera tirada ya no se pueden tirar más dados
 if (tiradas === 3) {
-    btnTirar.disabled = true;
+    btnComenzar.innerText = "Pasar sin puntos";
+    document.querySelector("#mensajeJuego").innerText = "Elegí una combinación iluminada o pasá sin puntos.";
     }
 }
 
@@ -141,32 +183,24 @@ if (tiradas === 3) {
 // ==============================
 //cuenta cuantas veces aparece cada cara en los dados
 function contarDados() {
-    let cantidades = [];
+    let cantidades = [0,0,0,0,0,0];
 
-    dados.forEach(function(dado) {
-        let repetido = false;
-
-        for (let i = 0; i < cantidades.length; i++) {
-            if (cantidades[i][0] === dado) {
-                cantidades[i][1]++;
-                repetido = true;
+    for (let i=0; 0 < dados.length; i++) {
+        for(let j=0; j< caras.length; j++) {
+            if (dados[i] === caras[i]) {
+                cantidades[i]++;
             }
         }
-
-        if (repetido === false) {
-            cantidades.push([dado, 1]);
-        }
-    });
-
-    let valores = [];
-
-    for (let i = 0; i < cantidades.length; i++) {
-        valores.push(cantidades[i][1]);
     }
-
-    return valores;
+    return cantidades;
 }
-
+function esEscalera(cantidades) {
+    let primera = cantidades[0] === 1 && cantidades[1] === 1 &&
+    cantidades[2] === 1 && cantidades[3] === 1 && cantidades[4] === 1;
+    let segunda = cantidades[1] === 1 && cantidades[2] === 1 &&
+        cantidades[3] === 1 && cantidades[4] === 1 && cantidades[5] === 1;
+    return primera || segunda;
+}
 // ==============================
 // DETECTAR COMBINACIONES
 // ==============================
@@ -185,89 +219,22 @@ function detectarCombinaciones() {
 
     for (let i = 0; i < valores.length; i++) {
 
-        if (valores[i] === 5) {
-            hayCinco = true;
-        }
-
-        if (valores[i] === 4) {
-            hayCuatro = true;
-        }
-
-        if (valores[i] === 3) {
-            hayTres = true;
-        }
-
-        if (valores[i] === 2) {
-            cantidadPares++;
-        }
+        if (valores[i] === 5) hayCinco = true;
+        if (valores[i] === 4) hayCuatro = true;
+        if (valores[i] === 3) hayTres = true;
+        if (valores[i] === 2) cantidadPares++;
     }
 
-    if (hayCinco) {
-        combinaciones.push("Cinco iguales");
-    }
-
-    if (hayCuatro) {
-        combinaciones.push("Cuatro Iguales");
-    }
-
-    if (hayTres && cantidadPares === 1) {
-        combinaciones.push("Full house");
-    }
-
-    if (hayTres) {
-        combinaciones.push("Tres iguales");
-    }
-
-    if (cantidadPares === 2) {
-        combinaciones.push("Dos pares");
-    }
-
-    if (cantidadPares === 1) {
-        combinaciones.push("Un par");
-    }
-    if (esEscalera()) {
-    combinaciones.push("Escalera");
-    }
-
-    if (combinaciones.length === 0) {
-        combinaciones.push("Sin combinación");
-    }
+    if (hayCinco) combinaciones.push("Cinco iguales");
+    if (hayCuatro) combinaciones.push("Cuatro Iguales");
+    if (hayTres && cantidadPares === 1) combinaciones.push("Full house");
+    if (hayTres) combinaciones.push("Tres iguales");
+    if (cantidadPares === 2) combinaciones.push("Dos pares");
+    if (cantidadPares === 1) combinaciones.push("Un par");
+    if (esEscalera()) combinaciones.push("Escalera");
+    if (combinaciones.length === 0) combinaciones.push("Sin combinación");
 
     return combinaciones;
-}
-// ==============================
-// DETECTAR ESCALERA
-// ==============================
-
-// Las dos escaleras posibles son:
-// 9 - 10 - J - Q - K
-// 10 - J - Q - K - A
-
-function esEscalera() {
-    let orden = ["9","10","J","Q","K","A"];
-
-    let posiciones = dados.map(dado => {
-        return orden.indexOf(dado); //OJO index0f
-    });
-    posiciones.sort((a,b) => a-b);
-
-    let primeraEscalera = [0,1,2,3,4];
-    let segundaEscalera = [1,2,3,4,5];
-
-    if (
-        JSON.stringify(posiciones) ===
-        JSON.stringify(primeraEscalera)
-    ) {
-        return true;
-    }
-    if (
-        JSON.stringify(posiciones) ===
-        JSON.stringify(segundaEscalera)
-    ) {
-        return true;
-    }
-
-    return false;
 }
 // ==============================
 // MOSTRAR COMBINACIONES
