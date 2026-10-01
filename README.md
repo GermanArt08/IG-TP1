@@ -35,12 +35,12 @@ El juego está diseñado para dos jugadores, que se turnan para realizar sus tir
 -Combinaciones-
 Las combinaciones que puede reconocer el juego son:
 
-Cinco iguales:	Los cinco dados muestran el mismo valor.
-Póker:	Cuatro dados muestran el mismo valor.
+Cinco iguales
+Cuatro iguales
 Full house:	Tres dados muestran un valor y los otros dos muestran otro valor.
-Trío:	Tres dados muestran el mismo valor.
-Dos pares:	Se obtienen dos pares de valores iguales.
-Un par:	Se obtienen dos dados con el mismo valor.
+Tres iguales
+Dos pares
+Un par
 
 El sistema detecta las combinaciones automáticamente después de cada tirada y las muestra como opciones disponibles para el jugador.
 
@@ -105,9 +105,13 @@ Open Trivia Database es una API pública y para las consultas utilizadas en este
 
 # Declaración de uso de IA
 -Germán-
-IA utilizada: ChatGPT versión estándar
+IA utilizada: ChatGPT versión estándar y luego CODEX
 Se usó principalmente para elaborar el desarrollo del funcionamiento de los juegos. En cuanto al Dados Póker, se le explicó las reglas del juego y también incorporamos un link a la página para que tuviera más informaciónen, pero en muchas ocaciones mencionaba código no visto en clase, como .index0f, Object.keys, .dataset, .contains, .checked, etc. Recomendaba utilizar tablas en el HTML pero se decidió reemplazarlas por div y se les agregó el diseño en CSS. 
 Para crear las imágenes de los dados también se usó IA, pero esta vez una herramienta especializada en la creación de imágenes (Sea.art) ya que se intentó con Grok y ChatGPT pero los resultados no fueron los esperados.
+Se usó principalmente para elaborar el desarrollo del funcionamiento de los juegos. En cuanto al Dados Póker, se le explicó las reglas del juego y también incorporamos un link a la página para que tuviera más informaciónen, pero en muchas ocaciones mencionaba código no visto en clase, como .index0f, Object.keys, .dataset, .contains, .checked, etc. Recomendaba utilizar tablas en el HTML pero se decidió reemplazarlas por div y se les agregó el diseño en CSS. Este último tuvo una primera versión hecha con IA (la paleta de colores fue generada por ella) y luego se la fue modificando a mano, reemplazando los valores en px por rem y se la distribuyó en 3 columnas.
+Luego de intentar optimizar el js (eliminando espacios innecesarios y mejores funciones) surgió el problema que al presionar para tirar los dados, la página se congelaba y no reaccionaba de ninguna manera, en la consola tampoco figuraba algún error. Después de un largo tiempo tratando de dar con la solución, se recurrió a ChatGPT CODEX adjuntándole los archivos necesarios (HTML y JS).
+Para crear las imágenes de los dados también se usó IA, pero esta vez una herramienta especializada en la creación de imágenes (Sea.art) ya que se intentó con Grok y ChatGPT pero los resultados no fueron los esperados.
+En algunos commits se usó la IA de GitHub (Copilot) para describirlos.
 
 -Juan-
 IA utilizada: ChatGPT plan básico

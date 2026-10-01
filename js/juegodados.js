@@ -103,12 +103,6 @@ elementosDados.forEach((dado, i) => {
         if (!juegoIniciado || tiradas === 0 || tiradas >= 3) {
             return;
         }
-
-        //no se pueden modificar los dados después de la tercera tirada
-        if (tiradas >= 3) {
-            return;
-        }
-
         // cambia entre guardado y no guardado
         dadosGuardados[i] = !dadosGuardados[i];
 
@@ -132,7 +126,7 @@ function tirarDados() {
         return;
     }
 //no deja superar las 3 tiradas y si hace un 4to termina el turno sin combinacion
-if (tiradas >= 3) {
+if (tiradas === 3) {
     textoResultado.innerText = jugadores [jugadorActual - 1] + "terminó el turno sin sumar puntos.";
     pasarTurno();
     return;
@@ -191,21 +185,19 @@ function esEscalera(cantidades) {
 //devuelve todas las combinaciones que el jugador puede seleccionar
 function detectarCombinaciones() {
 
-    let valores = contarDados();
-
+    let cantidades = contarDados();
     let combinaciones = [];
-
     let hayCinco = false;
     let hayCuatro = false;
     let hayTres = false;
     let cantidadPares = 0;
 
-    for (let i = 0; i < valores.length; i++) {
+    for (let i = 0; i < cantidades.length; i++) {
 
-        if (valores[i] === 5) hayCinco = true;
-        if (valores[i] === 4) hayCuatro = true;
-        if (valores[i] === 3) hayTres = true;
-        if (valores[i] === 2) cantidadPares++;
+        if (cantidades[i] === 5) hayCinco = true;
+        if (cantidades[i] === 4) hayCuatro = true;
+        if (cantidades[i] === 3) hayTres = true;
+        if (cantidades[i] === 2) cantidadPares++;
     }
 
     if (hayCinco) combinaciones.push("Cinco iguales");
