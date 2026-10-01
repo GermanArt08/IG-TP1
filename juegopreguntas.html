@@ -21,22 +21,23 @@
             </nav>
         </header>
         <main>
-            <h1>Ruleta de trivia</h1>
-            <section id="reglas">
+            <h1>🎡Ruleta de trivia🎰</h1>
+            <div id="columnasJuego">
+            <section id="reglas" class="panelJuego">
                 <h2>Como jugar</h2>
                 <p>El juego consta de 10 rondas. En cada ronda se debera de responder una pregunta de opción múltiple.</p>
                 <p>La pregunta y su categoría es otorgada por una ruleta accionada por el jugador.</p>
                 <p>El jugador cuenta con un tiempo de 15 segundos para responder la pregunta otorgada, por cada respuesta correcta se suman 100 puntos</p>
                 <p>Si el jugador responde incorrectamente o se le acaba el tiempo, no se le sumaran puntos. Al finalizar las 10 preguntas se mostrara el puntaje final</p>
             </section>
-            <section id="ruleta">
+            <section id="ruleta" class="panelJuego">
                 <h2>Ruleta de categorías</h2>
                 <div id="categorias-ruleta">
                 </div>
                 <p id="categoria">Categoría: todavía no seleccionada</p>
                 <button id="girar" type="button">Girar ruleta</button>
             </section>
-            <section id="juego">
+            <section id="juego" class="panelJuego">
                 <h2>Pregunta</h2>
                 <p id="pregunta">Girá la ruleta para comenzar.</p>
                 <div id="respuestas">
@@ -49,6 +50,7 @@
                 <button id="siguiente" type="button">Siguiente ronda</button>
                 <button id="nueva-partida-trivia" type="button">Nueva partida</button>
             </section>
+            </div>
         </main>
         <footer></footer>
     </div>

@@ -21,9 +21,9 @@
             </nav>
         </header>
         <main>
-            <h1>♦BlackJack♠</h1>
-
-            <section id="reglas">
+            <h1>♦️BlackJack♣️</h1>
+            <div id="columnasJuego">
+            <section id="reglas" class="panelJuego">
                 <h2>Cómo jugar</h2>
                 <h3>Objetivo</h3>
                 <p>El objetivo del Blackjack es conseguir un valor de cartas lo más cercano posible a 21 sin pasarse.</p>
@@ -39,7 +39,7 @@
                 <p>El crupier va a pedir cartas hasta alcanzar al menos los 17 puntos. Una de las cartas que le toca permanece oculta durante el turno del jugador</p>
             </section>
 
-            <section id="mesa">
+            <section id="mesa" class="panelJuego">
                 <h2>Crupier</h2>
                 <div id="cartas-crupier">
                 </div>
@@ -56,10 +56,11 @@
                 </p>
                 <p id="resultado-blackjack"></p>
 
-                <button id="pedir" type="button">pedir carta</button>
+                <button id="pedir" type="button">Pedir carta</button>
                 <button id="plantarse" type="button">Plantarse</button>
                 <button id="nueva-partida" type="button">Nueva Partida</button>
             </section>
+        </div>
         </main>
         <footer></footer>
     </div>
