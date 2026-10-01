@@ -29,6 +29,16 @@ let cartasJugador = [];
 let cartasCrupier = [];
 
 let partidaTerminada = false;
+let rachaActual = 0;
+let recordBlackjack = 
+localStorage.getItem("recordBlackjack");
+
+if (recordBlackjack == null) {
+    recordBlackjack = 0;
+} else {
+    recordBlackjack =
+    JSON.parse(recordBlackjack);
+}
 
 //elementos del html
 const contenedorJugador = document.querySelector("#cartas-jugador");
@@ -36,6 +46,8 @@ const contenedorCrupier = document.querySelector("#cartas-crupier");
 const puntajeJugadorTexto = document.querySelector("#puntaje-jugador");
 const puntajeCrupierTexto = document.querySelector("#puntaje-crupier");
 const resultado = document.querySelector("#resultado-blackjack");
+const rachaTexto = document.querySelector("#racha-blackjack");
+const recordTexto = document.querySelector("#record-blackjack");
 const botonPedir = document.querySelector("#pedir");
 const botonPlantarse = document.querySelector("#plantarse");
 const botonNuevaPartida = document.querySelector("#nueva-partida");
@@ -144,6 +156,34 @@ function actualizarMesa() {
     }   
 }
 
+//ACTUALIZAR RACHA Y RECORD
+function actualizarRecord(
+    resultadoPartida
+) {
+    if (resultadoPartida == "gano") {
+        rachaActual++;
+        if (rachaActual
+            > recordBlackjack
+        ) {
+            recordBlackjack =
+            rachaActual;
+
+            localStorage.setItem("recordBlackjack", JSON.stringify(
+                recordBlackjack
+            )
+          );
+        }
+    } else if (
+        resultadoPartida == "perdio"
+    ) {
+        rachaActual = 0;
+    }
+
+    rachaTexto.innerText = "racha actual: " + rachaActual;
+
+    recordTexto.innerText = "Récord de victorias consecutivas: " + recordBlackjack;
+}
+
 //PEDIR CARTA
 function pedirCarta() {
     if (partidaTerminada == false) {
@@ -154,7 +194,7 @@ function pedirCarta() {
         let puntajeJugador = calcularPuntaje(cartasJugador);
  
         if (puntajeJugador > 21) {
-            finalizarPartida("Te pasaste de 21. Gana el crupier.");
+            finalizarPartida("Te pasaste de 21. Gana el crupier.", "perdio");
         } else if (puntajeJugador == 21) {
             turnoCrupier();
         }
@@ -187,20 +227,28 @@ function turnoCrupier() {
 
     //COMPARAR RESULTADOS
     if (puntajeCrupier > 21) {
-        finalizarPartida("El crupier se pasó de 21. ¡Ganaste!.");
+        finalizarPartida("El crupier se pasó de 21. ¡Ganaste!.", "gano");
     } else if (puntajeJugador > puntajeCrupier) {
-        finalizarPartida("¡Ganaste la partida!");
+        finalizarPartida("¡Ganaste la partida!", "gano");
     } else if (puntajeJugador < puntajeCrupier) {
-        finalizarPartida("Gana el crupier.");
+        finalizarPartida("Gana el crupier.", "perdio");
     } else {
-        finalizarPartida("Empate.");
+        finalizarPartida("Empate.", "empate");
     }
 }
 
 //FINALIZAR PARTIDA
-function finalizarPartida(mensaje) {
+function finalizarPartida(
+    mensaje,
+    resultadoPartida
+) {
     partidaTerminada = true;
-    resultado.innerText = mensaje;
+    resultado.innerText = 
+    mensaje;
+    actualizarRecord(
+        resultadoPartida
+    );
+
     actualizarMesa();
 }
 
@@ -240,4 +288,8 @@ function nuevaPartida() {
 }
 
 //COMENZAR EL JUEGO
+rachaTexto.innerText = "Racha actual: " + rachaActual;
+
+recordTexto.innerText = "Récord de  victorias consecutivas: " + recordBlackjack;
+
 nuevaPartida();
