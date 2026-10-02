@@ -133,7 +133,7 @@ if (tiradas === 3) {
 }
 
 //recorre los cinco dados
-for (let i = 0; i < dados.length; i++) {
+for (let i = 0 ; i < dados.length; i++) {
         if (!dadosGuardados[i]) {
             let posicion = Math.floor(Math.random() * caras.length);
             dados[i] = caras[posicion];
@@ -162,7 +162,7 @@ if (tiradas === 3) {
 function contarDados() {
     let cantidades = [0,0,0,0,0,0];
 
-    for (let i=0; 0 < dados.length; i++) {
+    for (let i=0; i < dados.length; i++) {
         for(let j=0; j< caras.length; j++) {
             if (dados[i] === caras[j]) {
                 cantidades[j]++;
@@ -201,12 +201,12 @@ function detectarCombinaciones() {
     }
 
     if (hayCinco) combinaciones.push("Cinco iguales");
-    if (hayCuatro) combinaciones.push("Cuatro Iguales");
-    if (hayTres && cantidadPares === 1) combinaciones.push("Full house");
+    if (hayCuatro) combinaciones.push("Cuatro iguales");
+    if (hayTres && cantidadPares === 1) combinaciones.push("Full House");
     if (hayTres) combinaciones.push("Tres iguales");
     if (cantidadPares === 2) combinaciones.push("Dos pares");
     if (cantidadPares === 1) combinaciones.push("Un par");
-    if (esEscalera()) combinaciones.push("Escalera");
+    if (esEscalera(cantidades)) combinaciones.push("Escalera");
     if (combinaciones.length === 0) combinaciones.push("Sin combinación");
 
     return combinaciones;
@@ -275,7 +275,7 @@ filasCombinaciones.forEach((fila) => {
         }
         if (!juegoIniciado || !estaDisponible)
         return;
-        seleccionarCombinacion(combinacion);
+        seleccionarCombinacion(nombre);
     });
 });
 
@@ -395,11 +395,11 @@ function terminarJuego() {
     let mensaje;
 
     if (totalJugador1 > totalJugador2) {
-        mensaje = "Ganó " + jugadores[0] + " con " + total1 + " puntos. " + jugadores[1] + " obtuvo " + total2 + ".";
+        mensaje = "Ganó " + jugadores[0] + " con " + totalJugador1 + " puntos. " + jugadores[1] + " obtuvo " + totalJugador2 + ".";
     } else if (totalJugador2 > totalJugador1) {
-        mensaje = "Ganó " + jugadores[1] + " con " + total2 + " puntos. " + jugadores[0] + " obtuvo " + total1 + ".";
+        mensaje = "Ganó " + jugadores[1] + " con " + totalJugador2 + " puntos. " + jugadores[0] + " obtuvo " + totalJugador1 + ".";
     } else {
-        mensaje = "Empate: " + jugadores[0] + " y " + jugadores[1] + " obtuvieron " + total1 + " puntos.";
+        mensaje = "Empate: " + jugadores[0] + " y " + jugadores[1] + " obtuvieron " + totalJugador1 + " puntos.";
     }
     textoTurno.innerText = "Juego terminado";
 

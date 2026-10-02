@@ -70,7 +70,7 @@ button:disabled {
     opacity: 0.55;
 }
 input {
-    border: 0.0625 solid #c9a64a;
+    border: 0.0625rem solid #c9a64a;
     border-radius: 0.25rem;
     padding: 0.5rem;
 }
@@ -80,15 +80,14 @@ footer {
     text-align: center;
 }
 
-/*ESTILOS JUEGO DADOS */
 main > h1, #turno {
     text-align: center;
 }
 #columnasJuego {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: space-between;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 .panelJuego {
     width: 30%;
@@ -99,12 +98,21 @@ main > h1, #turno {
     border-radius: 0.625rem;
     padding: 0.9rem;
 }
+
+/*ESTILOS JUEGO DADOS */
+#zonaDados {
+    order: 1;
+    width: 30%;
+}
 #combinaciones {
+    order: 2;
     width: 40%;
     min-width: 22rem;
 }
 #instrucciones {
     width: 27%;
+    order: 3;
+    min-width: 22rem;
 }
 .panelJuego h2 {
     margin-top: 0.1rem;
@@ -138,7 +146,6 @@ main > h1, #turno {
 
 .dado.guardado {
     border: 0.3rem solid #ffcc00;
-    size: 1rem;
 }
 #botonesJuego button{
 margin: 0.25rem;
@@ -232,15 +239,76 @@ margin: 0.25rem;
     margin: 0.4rem;
 }
 /*ESTILOS BLACKJACK*/
-#cartas-jugador img,
-#cartas-crupier img {
-    width: 90px;
-    height: auto
-}
-
-#cartas-jugador,
-#cartas-crupier {
+#cartas-crupier,
+#cartas-jugador {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    align-items: flex-start;
+}
+
+#cartas-crupier img,
+#cartas-jugador img {
+    width: 6rem;
+    height: auto;
+    margin: 0 0.4rem 0.5rem 0;
+}
+#mesa {
+    order: 1;
+    width: 63%;
+}
+/*ESTILOS JUEGO DE PREGUNTAS*/
+#ruleta {
+    order: 1;
+    width: 27%;
+}
+#juego {
+    order: 2;
+    width: 40%;
+}
+#reglas {
+    order: 3;
+    width: 33%;
+    margin-left: auto;
+}
+#categorias-ruleta,
+#cartas-crupier,
+#cartas-jugador {
+    background: #17231f;
+    border: 0.0625rem solid #c9a64a;
+    border-radius: 0.625rem;
+    padding: 0.8rem;
+}
+
+#categorias-ruleta {
+    min-height: 12rem;
+    margin-bottom: 1rem;
+}
+
+#respuestas {
+    margin: 1rem 0;
+}
+
+#respuestas button {
+    display: block;
+    width: 100%;
+    margin: 0 0 0.5rem;
+    text-align: left;
+}
+
+#pregunta {
+    background: #17231f;
+    border-left: 0.25rem solid #c9a64a;
+    border-radius: 0.25rem;
+    padding: 0.8rem;
+}
+
+#tiempo,
+#puntaje,
+#record-trivia,
+#ronda,
+#puntaje-crupier,
+#puntaje-jugador {
+    background: #17231f;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
 }
