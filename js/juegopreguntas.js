@@ -13,6 +13,7 @@ let puedeGirar = true;
 let juegoTerminado = false;
 
 let categoriaElegida;
+let nombreJugadorTrivia = "";
 
 //CATEGORÍAS DE LA RULETA
 let categorias = [
@@ -39,11 +40,20 @@ const resultado = document.querySelector("#resultado");
 const botonGirar = document.querySelector("#girar");
 const botonSiguiente = document.querySelector("#siguiente");
 const botonNuevaPartida = document.querySelector("#nueva-partida-trivia");
+const formularioTrivia = document.querySelector("#formulario-trivia");
+const nombreTriviaTexto = document.querySelector("#nombre-trivia"); 
 
 //EVENTOS PRINCIPALES
 botonGirar.addEventListener("click", girarRuleta);
 botonSiguiente.addEventListener("click", siguienteRonda);
 botonNuevaPartida.addEventListener("click", nuevaPartida);
+formularioTrivia.addEventListener("submit", function(evento){
+    evento.preventDefault();
+    nombreJugadorTrivia = document.querySelector("#nombre-jugador-trivia").value;
+    nombreTriviaTexto.innerText = "Jugador: " + nombreJugadorTrivia;
+    formularioTrivia.hidden = true;
+}
+);
 
 //CREACIÓN DE LA RULETA
 function crearRuleta() {
@@ -68,6 +78,11 @@ function marcarCategoria(posicion) {
 
 //FUNCIONAMIENTO DE LA RULETA
 function girarRuleta() {
+if (nombreJugadorTrivia == "") {
+    resultado.innerText = "Primero ingresa tu nombre para empezar a jugar.";
+    return;
+}
+
 if ( 
     puedeGirar == true
     && juegoTerminado == false 
@@ -352,6 +367,7 @@ function finalizarJuego() {
         "¡Juego finalizado!";
 
     guardarRecord();
+    guardarRankingTrivia();
 
     resultado.innerText =
         "Puntaje final: "
@@ -401,6 +417,62 @@ function guardarRecord() {
     recordTexto.innerText =
         "Récord: "
         + recordGuardado;
+}
+
+//GUARDAR PUNTAJE EN LA TABLA DE POSICIONES
+function guardarRankingTrivia() {
+    if (nombreJugadorTrivia == "") {
+        return;
+    }
+    let rankingGuardado = localStorage.getItem("rankingTrivia");
+    let ranking = [];
+    if (rankingGuardado != null) {
+        ranking = JSON.parse(rankingGuardado);
+    }
+    let jugadorEncontrado = false;
+    for (
+        let i = 0; i < ranking.length; i++
+    ) {
+        if (
+            ranking [i].nombre == nombreJugadorTrivia
+        ) {
+            jugadorEncontrado = true;
+            if (
+                puntaje > ranking[i].puntaje
+            ) {
+                ranking[i].puntaje = puntaje;
+            }
+        }
+    }
+
+    if (jugadorEncontrado == false) {
+        let nuevoPuntaje = {
+            nombre: nombreJugadorTrivia,
+            puntaje: puntaje
+        };
+        ranking.push(nuevoPuntaje);
+    }
+    for (
+        let i = 0; i < ranking.length; i++
+    ) {
+        for (
+            let j = i + 1; j < ranking.length; j++
+        ) {
+            if (
+                ranking[j].puntaje > ranking[i].puntaje
+            ) {
+                let auxiliar = ranking[i];
+                ranking[i] = ranking[j];
+                ranking[j] = auxiliar;
+            }
+        }
+    }
+
+    if (ranking.length > 10) {
+        ranking.splice(10, ranking.length - 10);
+    }
+    localStorage.setItem("rankingTrivia", JSON.stringify(ranking)
+  );
 }
 
 

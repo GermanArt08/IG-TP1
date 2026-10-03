@@ -379,6 +379,75 @@ function iniciarTurno() {
     document.querySelector("#mensajeJuego").innerText = "Tirá los dados para comenzar tu turno.";
     iluminarTurno();
 }
+//GUARDAR PUNTAJE EN LA TABLA DE POSICIONES
+function guardarRankingDados(
+    nombre,
+    puntajeJugador
+) {
+    let rankingGuardado =
+        localStorage.getItem(
+            "rankingDados"
+        );
+    let ranking = [];
+    if (rankingGuardado != null) {ranking = JSON.parse(rankingGuardado);
+    }
+    let jugadorEncontrado = false;
+    for (
+        let i = 0;
+        i < ranking.length;
+        i++
+    ) {
+        if (ranking[i].nombre == nombre) {
+            jugadorEncontrado = true;
+
+            if (puntajeJugador > ranking[i].puntaje
+            ) {
+                ranking[i].puntaje = puntajeJugador;
+            }
+        }
+    }
+
+    if (jugadorEncontrado == false) {
+
+        let nuevoPuntaje = {
+            nombre: nombre,
+            puntaje: puntajeJugador
+        };
+
+        ranking.push(nuevoPuntaje);
+    }
+
+    for (
+        let i = 0;
+        i < ranking.length;
+        i++
+    ) {
+        for (
+            let j = i + 1;
+            j < ranking.length;
+            j++
+        ) {
+            if (ranking[j].puntaje > ranking[i].puntaje
+
+            ) {
+                let auxiliar =
+                    ranking[i];
+
+                ranking[i] =
+                    ranking[j];
+
+                ranking[j] =
+                    auxiliar;
+            }
+        }
+    }
+
+    if (ranking.length > 10) {
+        ranking.splice(10, ranking.length - 10);
+    }
+    localStorage.setItem("rankingDados", JSON.stringify(ranking)
+    );
+}
 // ==============================
 // TERMINAR JUEGO
 // ==============================
@@ -394,6 +463,14 @@ function terminarJuego() {
     let totalJugador1 = calcularTotal(1);
     let totalJugador2 = calcularTotal(2);
     guardarRecord(totalJugador1, totalJugador2);
+    guardarRankingDados(
+    jugadores[0],
+    totalJugador1);
+
+guardarRankingDados(
+    jugadores[1],
+    totalJugador2);
+    
     let mensaje;
 
     if (totalJugador1 > totalJugador2) {

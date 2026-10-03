@@ -30,8 +30,8 @@ let cartasCrupier = [];
 
 let partidaTerminada = false;
 let rachaActual = 0;
-let recordBlackjack = 
-localStorage.getItem("recordBlackjack");
+let recordBlackjack = localStorage.getItem("recordBlackjack");
+let nombreJugadorBlackjack = "";
 
 if (recordBlackjack == null) {
     recordBlackjack = 0;
@@ -51,11 +51,22 @@ const recordTexto = document.querySelector("#record-blackjack");
 const botonPedir = document.querySelector("#pedir");
 const botonPlantarse = document.querySelector("#plantarse");
 const botonNuevaPartida = document.querySelector("#nueva-partida");
+const formularioBlackjack = document.querySelector("#formulario-blackjack");
+const nombreBlackjackTexto = document.querySelector("#nombre-blackjack");
 
 //eventos principales
 botonPedir.addEventListener("click", pedirCarta);
 botonPlantarse.addEventListener("click", plantarse);
 botonNuevaPartida.addEventListener("click", nuevaPartida);
+formularioBlackjack.addEventListener(
+    "submit",
+    function (evento) {
+        evento.preventDefault();
+        nombreJugadorBlackjack = document.querySelector("#nombre-jugador-blackjack").value;
+        nombreBlackjackTexto.innerText = "jugador: " + nombreJugadorBlackjack;
+        formularioBlackjack.hidden = true;
+    }
+);
 
 //creación del mazo
 function crearMazo() {
@@ -162,6 +173,7 @@ function actualizarRecord(
 ) {
     if (resultadoPartida == "gano") {
         rachaActual++;
+        guardarRankingBlackjack();
         if (rachaActual
             > recordBlackjack
         ) {
@@ -184,8 +196,75 @@ function actualizarRecord(
     recordTexto.innerText = "Récord de victorias consecutivas: " + recordBlackjack;
 }
 
+//GUARDAR PUNTAJE EN LA TABLA DE POSICIONES
+function guardarRankingBlackjack() {
+    if (nombreJugadorBlackjack == "") {
+        return;
+    }
+    let rankingGuardado = localStorage.getItem(
+        "rankingBlackjack"
+    );
+    let  ranking = [];
+    if (rankingGuardado != null) {
+        ranking = JSON.parse(rankingGuardado);
+    }
+
+    let jugadorEncontrado = false;
+    for (
+        let i = 0; i < ranking.length; i++
+    ) {
+        if (
+            ranking[i].nombre == nombreJugadorBlackjack
+        ) {
+            jugadorEncontrado = true;
+            if (
+                rachaActual > ranking[i].puntaje
+            ) {
+                ranking[i].puntaje = rachaActual;
+            }
+        }
+    }
+
+    if (jugadorEncontrado == false) {
+        let nuevoPuntaje = {
+            nombre: nombreJugadorBlackjack,
+            puntaje: rachaActual
+        };
+        ranking.push(nuevoPuntaje);
+    }
+
+    //ORDENAR RANKING DE MAYOR A MENOR
+    for (
+        let i = 0; i < ranking.length; i++
+    ) {
+        for (
+            let j = i + 1; j < ranking.length; j++
+        ) {
+            if (
+                ranking[j].puntaje > ranking[i].puntaje
+            ) {
+                let auxiliar = ranking [i];
+                ranking[i] = ranking[j];
+                ranking[j] = auxiliar;
+            }
+        }
+    }
+
+    //GUARDAR SOLO LOS 10 MEJORES
+    if (ranking.length > 10) {
+        ranking.splice(10, ranking.length - 10);
+    }
+    localStorage.setItem(
+        "rankingBlackjack", JSON.stringify(ranking)
+    );
+}
+
 //PEDIR CARTA
 function pedirCarta() {
+    if (nombreJugadorBlackjack == "") {
+        resultado.innerText = "Primero ingresá tu nombre para poder jugar.";
+        return;
+    }
     if (partidaTerminada == false) {
         cartasJugador.push(
             sacarCarta()
@@ -203,6 +282,10 @@ function pedirCarta() {
 
 //PLANTARSE
 function plantarse() {
+    if (nombreJugadorBlackjack == "") {
+        resultado.innerText = "Primero ingresá tu nombre para poder jugar.";
+        return;
+    }
     if (partidaTerminada == false) {
         turnoCrupier();
         

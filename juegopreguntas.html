@@ -38,6 +38,18 @@
                 <button id="girar" type="button">Girar ruleta</button>
             </section>
             <section id="juego" class="panelJuego">
+                <form id="formulario-trivia">
+                    <label for="nombre-jugador-trivia"> Nombre del jugador </label>
+                    <input 
+                    id="nombre-jugador-trivia"
+                    name="nombre-jugador-trivia"
+                    type="text"
+                    maxlength="12"
+                    required
+                    >
+                    <button type="submit"> Guardar nombre </button> 
+                </form>
+                <p id="nombre-trivia"> Ingresá tu nombre para jugar.</p>
                 <h2>Pregunta</h2>
                 <p id="pregunta">Girá la ruleta para comenzar.</p>
                 <div id="respuestas">
