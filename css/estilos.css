@@ -8,13 +8,11 @@ body {
     color: #f7f0df;
     font-family: Arial, sans-serif;
 }
-
 #contenedor {
     width: 100%;
     margin: 0 auto;
     padding: 1rem;
 }
-
 header,
 footer {
     background-color: #17231f;
@@ -22,14 +20,12 @@ footer {
     border-radius: 0.625rem;
     padding: 1rem 1.4rem;
 }
-
 header h1,
 h1,
 h2 {
     color: #f0cc69;
     text-align: center;
 }
-
 nav ul {
     display: flex;
     flex-wrap: wrap;
@@ -49,11 +45,9 @@ nav a {
     color: #f7f0df;
     text-decoration: none;
 }
-
 nav a:hover {
     color: #f0cc69;
 }
-
 button {
     background-color: #8b2635;
     color: white;
@@ -61,11 +55,9 @@ button {
     border-radius: 0.375rem;
     padding: 0.65rem 0.9rem;
 }
-
 button:hover {
     background-color: #a83243;
 }
-
 button:disabled {
     opacity: 0.55;
 }
@@ -74,12 +66,10 @@ input {
     border-radius: 0.25rem;
     padding: 0.5rem;
 }
-
 footer {
     margin-top: 1rem;
     text-align: center;
 }
-
 main > h1, #turno {
     text-align: center;
 }
@@ -118,21 +108,17 @@ main > h1, #turno {
     margin-top: 0.1rem;
     font-size: 1.2rem;
 }
-
 #formularioNombres label,
 #formularioNombres input {
     display: block;
     width: 100%;
 }
-
 #formularioNombres label {
     margin: 0.65rem 0 0.25rem;
 }
-
 #formularioNombres button {
     margin-top: 0.7rem;
 }
-
 #dados {
     display: flex;
     flex-wrap: wrap;
@@ -143,7 +129,6 @@ main > h1, #turno {
     margin: 0.5rem;
     cursor: pointer;
 }
-
 .dado.guardado {
     border: 0.3rem solid #ffcc00;
 }
@@ -164,12 +149,10 @@ margin: 0.25rem;
 .filaCombinacion p:first-child {
     width: 44%;
 }
-
 #encabezadoCombinaciones p {
     color: #f0cc69;
     font-weight: bold;
 }
-
 #encabezadoCombinaciones p {
     color: #f0cc69;
     font-weight: bold;
@@ -184,27 +167,22 @@ margin: 0.25rem;
 .combinacion.disponible:hover {
     background: #697d4b;
 }
-
 .turnoActivo {
     background: #5a4930;
     color: #fff0bc;
     font-weight: bold;
 }
-
 .filaTotal p {
     border-top: 0.125rem solid #c9a64a;
     border-bottom: 0;
     font-weight: bold;
 }
-
 #instrucciones ol {
     padding-left: 1.2rem;
 }
-
 #instrucciones li {
     margin-bottom: 0.75rem;
 }
-
 .fondoModal {
     position: fixed;
     top: 0;
@@ -218,12 +196,10 @@ margin: 0.25rem;
     background: rgba(0, 0, 0, 0.75);
     z-index: 5;
 }
-
 .fondoModal[hidden],
 [hidden] {
     display: none;
 }
-
 .modal {
     width: 30rem;
     max-width: 100%;
@@ -241,11 +217,11 @@ margin: 0.25rem;
 /*ESTILOS BLACKJACK*/
 #cartas-crupier,
 #cartas-jugador {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+order: 2;
+width: 49%;
+min-height: 6rem;
+margin-bottom: 0.4rem;
 }
-
 #cartas-crupier img,
 #cartas-jugador img {
     width: 6rem;
@@ -253,21 +229,50 @@ margin: 0.25rem;
     margin: 0 0.4rem 0.5rem 0;
 }
 #mesa {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+}
+#mesa > h2 {
     order: 1;
-    width: 63%;
+    width: 49%;
+    margin: 0 0 0 0.5rem;
+}
+#puntaje-crupier,
+#puntaje-jugador {
+    order: 3;
+    width: 49%;
+    margin: 0.25rem 0;
+}
+#resultado-blackjack,
+#racha-blackjack,
+#record-blackjack {
+    order: 4;
+    width: 100%;
+    margin: 0.35rem 0;
+}
+#pedir,
+#plantarse,
+#nueva-partida {
+    order: 5;
+    width: 32%;
+    margin: 0.25rem 0;
+    padding: 0.5rem 0.25rem;
 }
 /*ESTILOS JUEGO DE PREGUNTAS*/
 #ruleta {
     order: 1;
-    width: 27%;
+    width: 26%;
 }
 #juego {
     order: 2;
-    width: 40%;
+    width: 38%;
+    margin-left: auto;
 }
 #reglas {
     order: 3;
-    width: 33%;
+    width: 32%;
     margin-left: auto;
 }
 #categorias-ruleta,
@@ -278,30 +283,31 @@ margin: 0.25rem;
     border-radius: 0.625rem;
     padding: 0.8rem;
 }
-
 #categorias-ruleta {
     min-height: 12rem;
     margin-bottom: 1rem;
 }
-
 #respuestas {
-    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-height: 12rem;
+    overflow-y: auto;
+    margin: 0.5rem 0;
 }
-
 #respuestas button {
     display: block;
-    width: 100%;
+    width: 48%;
     margin: 0 0 0.5rem;
+    padding: 0.5rem;
     text-align: left;
 }
-
 #pregunta {
     background: #17231f;
     border-left: 0.25rem solid #c9a64a;
     border-radius: 0.25rem;
     padding: 0.8rem;
 }
-
 #tiempo,
 #puntaje,
 #record-trivia,
