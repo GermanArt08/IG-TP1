@@ -59,6 +59,7 @@ let textoTurno = document.querySelector("#turno");
 let textoTiradas = document.querySelector("#tiradas");
 let textoResultado = document.querySelector("#resultado");
 let formularioNombres = document.querySelector("#formularioNombres");
+let textoRecord = document.querySelector("#record-dados")
 
 //el botón Enviar se habilita cuando los dos nombres tienen texto
 formularioNombres.addEventListener("input", () => {
@@ -459,8 +460,68 @@ document.querySelector("#salir").addEventListener("click", () => {
     btnComenzar.disabled = false;
     document.querySelector("#mensajeJuego").innerText = "Nombres guardados. Presionen Comenzar a jugar cuando estén listos.";
     textoTurno.innerText = "Nombres: " + jugadores[0] + " y " + jugadores[1];
+    guardarRecord();
+    
 });
 
+//Guardar y mostrar record PROVISORIO
+function guardarRecord() {
+    let recordGuardado =
+        localStorage.getItem(
+            "recordDados"
+        );
+    if (recordGuardado == null) {
+        localStorage.setItem(
+            "recordDados",
+            JSON.stringify(puntaje)
+        );
+
+        recordGuardado = puntaje;
+    } else {
+        recordGuardado =
+            JSON.parse(
+                recordGuardado
+            );
+
+        if (
+            puntaje > recordGuardado
+        ) {
+
+            localStorage.setItem(
+                "recordDados",
+                JSON.stringify(puntaje)
+            );
+
+            recordGuardado = puntaje;
+        }
+    }
+
+    textoRecord.innerText =
+        "Récord: "
+        + recordGuardado;
+}
+
+//Mostrar récord guardado
+function mostrarRecord() {
+
+    let recordGuardado =
+        localStorage.getItem(
+            "recordDados"
+        );
+    if (recordGuardado == null) {
+        textoRecord.innerText =
+            "Récord: 0";
+    } else {
+        recordGuardado =
+            JSON.parse(
+                recordGuardado
+            );
+
+        textoRecord.innerText =
+            "Récord: "
+            + recordGuardado;
+    }
+}
 //estado inicial: se ingresan nombres antes de iniciar el primer turno
 btnComenzar.disabled = true;
 actualizarTabla();
