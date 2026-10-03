@@ -393,6 +393,7 @@ function terminarJuego() {
 
     let totalJugador1 = calcularTotal(1);
     let totalJugador2 = calcularTotal(2);
+    guardarRecord(totalJugador1, totalJugador2);
     let mensaje;
 
     if (totalJugador1 > totalJugador2) {
@@ -459,69 +460,57 @@ document.querySelector("#salir").addEventListener("click", () => {
     btnComenzar.hidden = false;
     btnComenzar.disabled = false;
     document.querySelector("#mensajeJuego").innerText = "Nombres guardados. Presionen Comenzar a jugar cuando estén listos.";
-    textoTurno.innerText = "Nombres: " + jugadores[0] + " y " + jugadores[1];
-    guardarRecord();
-    
+    textoTurno.innerText = "Nombres: " + jugadores[0] + " y " + jugadores[1];  
 });
 
 //Guardar y mostrar record PROVISORIO
-function guardarRecord() {
+function guardarRecord(totalJugador1, totalJugador2) {
+    let nuevoRecord;
+
+    if(totalJugador1>=totalJugador2) {
+        nuevoRecord = {
+            nombre: jugadores[0],
+            puntos: totalJugador1
+        };
+    } else {
+        nuevoRecord = {
+            nombre: jugadores[1],
+            puntos: totalJugador2
+        };
+    }
+
     let recordGuardado =
         localStorage.getItem(
             "recordDados"
         );
-    if (recordGuardado == null) {
-        localStorage.setItem(
-            "recordDados",
-            JSON.stringify(puntaje)
-        );
+    if (recordGuardado !== null) {
+        recordGuardado = JSON.parse(recordGuardado);
 
-        recordGuardado = puntaje;
-    } else {
-        recordGuardado =
-            JSON.parse(
-                recordGuardado
-            );
-
-        if (
-            puntaje > recordGuardado
-        ) {
-
-            localStorage.setItem(
-                "recordDados",
-                JSON.stringify(puntaje)
-            );
-
-            recordGuardado = puntaje;
+        if (recordGuardado.puntos > nuevoRecord.puntos) {
+            nuevoRecord = recordGuardado;
         }
     }
-
-    textoRecord.innerText =
-        "Récord: "
-        + recordGuardado;
+    localStorage.setItem("recordDados", JSON.stringify(nuevoRecord));
+    mostrarRecord();
 }
-
 //Mostrar récord guardado
 function mostrarRecord() {
 
     let recordGuardado =
-        localStorage.getItem(
-            "recordDados"
-        );
+        localStorage.getItem("recordDados");
     if (recordGuardado == null) {
         textoRecord.innerText =
-            "Récord: 0";
+            "Récord: todavía no hay partidas";
     } else {
         recordGuardado =
-            JSON.parse(
-                recordGuardado
-            );
+            JSON.parse(recordGuardado);
 
         textoRecord.innerText =
             "Récord: "
-            + recordGuardado;
+            + recordGuardado.nombre + " - " + recordGuardado.puntos + "puntos";
     }
 }
 //estado inicial: se ingresan nombres antes de iniciar el primer turno
 btnComenzar.disabled = true;
 actualizarTabla();
+mostrarRecord();
