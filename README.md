@@ -1,123 +1,163 @@
 # Roll & Deal
-Universidad Nacional de las Artes
-Lic. Artes Multimediales
-Informática General TM 2026 Cátedra Drelichman
 
-# Integrantes:
-Juan Carol Lugones
-Fernando Germán Zariz Lüchter
+Universidad Nacional de las Artes  
+Licenciatura en Artes Multimediales  
+Informática General, turno mañana, 2026  
+Trabajo Práctico 1 — Cátedra Drelichman
 
-Roll & Deal es un sitio web que simula una casa de apuestas donde los visitantes pueden jugar a los Dados Póker, BlackJack o un juego de preguntas de cultura general.
+## Integrantes
 
-# Proceso
-Se comenzó este proyecto con una breve investigación buscando juegos de dados simples en internet. Nos topamos con uno llamado Poker Dice ("Dados Póker"en inglés) y quisimos replicarlo. Para el juego de cartas escojimos el BlackJack pensando en una temática de casino. Siguiendo esa temática, se decidió que el juego de preguntas sea una ruleta que elije una categoría para responder.
-La estructura base de carpetas y los HTML fue realizada por Germán al igual que el juego de dados. Juan agregó más contenido a los HTML y se encargó del juego de preguntas y cartas
+- Juan Carol Lugones
+- Fernando Germán Zariz Lüchter
 
-# Juegos y reglas
--🎲Dados Póker-
-Este proyecto es una adaptación del clásico juego de Póker con dados (aunque también muy similar a la Generala). El objetivo es obtener diferentes combinaciones utilizando cinco dados, cuyas caras contienen las letras y números A, K, Q, J, 10 y 9.
+## Sobre el proyecto
 
-El juego está diseñado para dos jugadores, que se turnan para realizar sus tiradas. En cada ronda, el jugador tira los cinco dados y el sistema analiza automáticamente los resultados para determinar qué combinaciones consiguió.
+Roll & Deal es un sitio web con temática de casino en el que se puede jugar a Dados Póker, Blackjack y una ruleta de preguntas. La idea fue reunir juegos distintos en un mismo sitio y darles una identidad visual común. No se realizan apuestas ni se utiliza dinero real.
 
--Reglas del juego-
--Participan dos jugadores.
--Se utilizan cinco dados.
--Los jugadores se turnan para realizar las tiradas.
--En cada turno, los cinco dados se lanzan y el sistema detecta automáticamente las combinaciones obtenidas.
--Cuando se obtiene una combinación, esta se habilita para que el jugador pueda seleccionarla.
--Al seleccionar una combinación, el jugador obtiene 1 punto en esa categoría. También tiene la opción de bloquear los dados a los que les haga click para que cuando vuelva a tirar, estos se conserven.
--Una vez seleccionada una combinación, el turno termina y pasa al siguiente jugador.
--Cada jugador dispone de 10 rondas.
--Una combinación seleccionada queda registrada y puede volver a aparecer en rondas posteriores, sumando otro punto a esa categoría.
--Al finalizar las 10 rondas, se muestran los resultados y el puntaje acumulado de cada jugador.
--Finalmente, los jugadores pueden elegir comenzar una nueva partida.
+Se comenzó con una breve investigación sobre juegos de dados simples en internet. Encontramos Poker Dice y decidimos adaptarlo. Para el juego de cartas elegimos Blackjack, y para el juego de preguntas propusimos una ruleta que selecciona una categoría.
 
--Combinaciones-
-Las combinaciones que puede reconocer el juego son:
+La estructura inicial de las carpetas y de los HTML fue realizada por Germán, al igual que el juego de dados. Juan agregó contenido a los HTML y desarrolló los juegos de cartas y de preguntas.
 
-Cinco iguales
-Cuatro iguales
-Full house:	Tres dados muestran un valor y los otros dos muestran otro valor.
-Tres iguales
-Dos pares
-Un par
+## Juegos y reglas
 
-El sistema detecta las combinaciones automáticamente después de cada tirada y las muestra como opciones disponibles para el jugador.
+### Dados Póker
 
--🃏BlackJack-
+Es una adaptación de Poker Dice, también parecida a la Generala. Se juega con cinco dados cuyas caras muestran A, K, Q, J, 10 y 9. Participan dos jugadores y cada uno juega diez rondas.
 
-El BlackJack es un juego de cartas en el que el jugador compite contra el crupier. El objetivo es conseguir un puntaje lo más cercano posible a 21 sin superarlo.
+En cada turno se pueden tirar los dados hasta tres veces. Después de una tirada, el jugador puede hacer clic en uno o varios dados para conservarlos; esos dados mantienen su valor mientras se vuelven a tirar los demás. Luego debe elegir una de las combinaciones iluminadas para registrarla. Elegir una combinación suma una aparición en esa categoría y termina el turno. Si usa las tres tiradas y hace otro clic para pasar, termina el turno sin sumar puntos.
 
-Al comenzar la partida, el jugador y el crupier reciben dos cartas. Una de las cartas del crupier permanece oculta durante el turno del jugador. El jugador puede decidir pedir nuevas cartas o plantarse con el puntaje que tenga.
+Las combinaciones y sus valores son:
 
--Reglas del juego-
--El jugador y el crupier comienzan con dos cartas.
--Las cartas del 2 al 10 valen su número correspondiente.
--Las cartas J, Q y K valen 10 puntos.
--El As vale 11 puntos, pero puede pasar a valer 1 si de esa manera se evita superar los 21 puntos.
--Una de las cartas del crupier permanece oculta mientras juega el usuario.
--El jugador puede elegir entre pedir una nueva carta o plantarse.
--Si el jugador supera los 21 puntos pierde automáticamente la partida.
--Cuando el jugador se planta, el crupier pide cartas automáticamente mientras tenga menos de 17 puntos.
--Si el crupier supera los 21 puntos gana el jugador.
--Si ninguno supera los 21 puntos, gana quien tenga el puntaje más alto.
--Si ambos tienen el mismo puntaje se produce un empate.
--Al finalizar se puede comenzar una nueva partida.
+- Cinco iguales: 50 puntos.
+- Cuatro iguales: 35 puntos.
+- Full House: 30 puntos.
+- Escalera: 40 puntos.
+- Tres iguales: 15 puntos.
+- Dos pares: 10 puntos.
+- Un par: 5 puntos.
+- Sin combinación: 20 puntos.
 
-Las cartas se seleccionan aleatoriamente de un mazo de 52 cartas. Cuando una carta es utilizada se elimina del mazo de esa partida para evitar que vuelva a aparecer. Para representar las cartas se utilizan imágenes de un mazo de dominio público.
+El sistema detecta las combinaciones después de cada tirada y las ilumina en la tabla. Al final de las diez rondas de cada jugador, se muestran los puntajes y el resultado. Se puede jugar la revancha con los mismos nombres o cambiar los jugadores.
 
--🎡Ruleta de Trivia-
+El juego también guarda el récord de puntaje y el ranking en el almacenamiento local del navegador.
 
-La Ruleta de Trivia es un juego de preguntas de opción múltiple basado en una estética de casino. El jugador debe girar una ruleta que selecciona aleatoriamente una categoría y luego responder una pregunta obtenida mediante una API pública.
+### Blackjack
 
--Reglas del juego-
--El juego está compuesto por 10 rondas.
--Al comenzar cada ronda el jugador debe girar la ruleta.
--La ruleta selecciona aleatoriamente una categoría.
--La pregunta que aparece corresponde a la categoría seleccionada.
--Cada pregunta tiene cuatro respuestas posibles y solamente una es correcta.
--El jugador dispone de 15 segundos para responder.
--Cada respuesta correcta suma 100 puntos.
--Las respuestas incorrectas o las preguntas que se quedan sin tiempo no suman puntos.
--Después de responder se puede avanzar a la siguiente ronda y volver a girar la ruleta.
--Al finalizar las 10 rondas se muestra el puntaje final.
--El mejor puntaje obtenido queda guardado como récord mediante localStorage.
--El jugador puede comenzar una nueva partida reiniciando el puntaje y las rondas.
+En Blackjack, el jugador compite contra el crupier y busca acercarse lo más posible a 21 puntos sin pasarse. Antes de jugar, se ingresa el nombre del jugador.
 
-Las categorías utilizadas son General, Cine, Música, Videojuegos, Ciencia, Deportes, Geografía e Historia.
+El jugador y el crupier comienzan con dos cartas. Una de las cartas del crupier queda oculta durante el turno del jugador. El jugador puede pedir una carta o plantarse.
 
-# API utilizada
-Para el juego Ruleta de Trivia se utiliza la API pública Open Trivia Database (OpenTDB).
-La API se utiliza para obtener las preguntas y las opciones de respuesta del juego. La consulta se realiza desde JavaScript utilizando fetch() y async/await.
+Reglas:
 
-Primero la ruleta selecciona una categoría. Cada categoría tiene asociado un identificador utilizado por Open Trivia Database. Luego se construye una consulta solicitando una pregunta de opción múltiple correspondiente a esa categoría.
+- Las cartas del 2 al 10 valen su número.
+- J, Q y K valen 10 puntos.
+- El As vale 11, pero puede pasar a valer 1 para evitar superar 21.
+- Si el jugador supera 21, pierde.
+- Cuando el jugador se planta, el crupier pide cartas mientras tenga menos de 17 puntos.
+- Si el crupier supera 21, gana el jugador.
+- Si ninguno supera 21, gana quien tenga el puntaje más alto. Si empatan, la partida termina en empate.
+- Al terminar se puede empezar una nueva partida.
 
-La respuesta de la API llega en formato JSON. De los datos recibidos se utilizan principalmente:
+Las cartas se eligen al azar de un mazo de 52 cartas. Cada carta que sale se elimina del mazo para que no vuelva a aparecer en esa partida. Se utilizan imágenes de cartas de dominio público. El juego guarda la racha y el ranking en el almacenamiento local del navegador.
 
--category: categoría de la pregunta.
--question: texto de la pregunta.
--correct_answer: respuesta correcta.
--incorrect_answers: array con las tres respuestas incorrectas.
+### Ruleta de Trivia
 
-JavaScript procesa estos datos, agrega la respuesta correcta al conjunto de respuestas incorrectas en una posición aleatoria y crea dinámicamente los cuatro botones que puede elegir el jugador.
+La Ruleta de Trivia es un juego de preguntas de opción múltiple. El jugador ingresa su nombre, gira la ruleta y responde una pregunta de la categoría elegida.
 
-Open Trivia Database es una API pública y para las consultas utilizadas en este proyecto no requiere una API key.
+La partida tiene diez rondas. Cada pregunta ofrece cuatro respuestas y hay 15 segundos para responder. Una respuesta correcta suma 100 puntos; las respuestas incorrectas y las preguntas sin responder no suman. Al terminar las diez rondas se muestra el puntaje final y se puede iniciar otra partida.
 
-# Declaración de uso de IA
--Germán-
-IA utilizada: ChatGPT versión estándar y luego CODEX
-Se usó principalmente para elaborar el desarrollo del funcionamiento de los juegos. En cuanto al Dados Póker, se le explicó las reglas del juego y también incorporamos un link a la página para que tuviera más informaciónen, pero en muchas ocaciones mencionaba código no visto en clase, como .index0f, Object.keys, .dataset, .contains, .checked, etc. Recomendaba utilizar tablas en el HTML pero se decidió reemplazarlas por div y se les agregó el diseño en CSS. 
-Para crear las imágenes de los dados también se usó IA, pero esta vez una herramienta especializada en la creación de imágenes (Sea.art) ya que se intentó con Grok y ChatGPT pero los resultados no fueron los esperados.
-Se usó principalmente para elaborar el desarrollo del funcionamiento de los juegos. En cuanto al Dados Póker, se le explicó las reglas del juego y también incorporamos un link a la página para que tuviera más informaciónen, pero en muchas ocaciones mencionaba código no visto en clase, como .index0f, Object.keys, .dataset, .contains, .checked, etc. Recomendaba utilizar tablas en el HTML pero se decidió reemplazarlas por div y se les agregó el diseño en CSS. Este último tuvo una primera versión hecha con IA (la paleta de colores fue generada por ella) y luego se la fue modificando a mano, reemplazando los valores en px por rem y se la distribuyó en 3 columnas.
-Luego de intentar optimizar el js (eliminando espacios innecesarios y mejores funciones) surgió el problema que al presionar para tirar los dados, la página se congelaba y no reaccionaba de ninguna manera, en la consola tampoco figuraba algún error. Después de un largo tiempo tratando de dar con la solución, se recurrió a ChatGPT CODEX adjuntándole los archivos necesarios (HTML y JS).
-Para crear las imágenes de los dados también se usó IA, pero esta vez una herramienta especializada en la creación de imágenes (Sea.art) ya que se intentó con Grok y ChatGPT pero los resultados no fueron los esperados.
-En algunos commits se usó la IA de GitHub (Copilot) para describirlos.
+Las categorías son General, Cine, Música, Videojuegos, Ciencia, Deportes, Geografía e Historia. El récord y el ranking se guardan en el almacenamiento local del navegador.
 
--Juan-
-IA utilizada: ChatGPT plan básico
+## Organización de archivos y carpetas
 
-Se utilizó principalmente como asistencia para desarrollar los juegos de BlackJack y Ruleta de Trivia, adjunte las clases dadas para poder realizar consultas sobre los contenidos vistos durante la cursada y detectar errores en el código.
-Para el BlackJack se utilizó IA para organizar la lógica del juego, y se le pidieron fuentes para el mazo de cartas. Se decidió utilizar un mazo de cartas de dominio público. También se realizaron modificaciones y correcciones al código propuesto después de probar el funcionamiento del juego.
+```text
+IG TP1/
+├── index.html
+├── integrantes.html
+├── juegocartas.html
+├── juegodados.html
+├── juegopreguntas.html
+├── puntajes.html
+├── README.md
+├── css/
+│   └── estilos.css
+├── js/
+│   ├── juegocartas.js
+│   ├── juegodados.js
+│   ├── juegopreguntas.js
+│   ├── puntajes.js
+│   └── script.js
+└── img/
+    ├── blackjack/
+    │   └── Imágenes de las cartas y del dorso del mazo
+    └── dados-poker/
+        └── Imágenes de las seis caras de los dados
+```
+
+Cada juego tiene su propio HTML y archivo JavaScript. `estilos.css` se comparte entre las páginas. `puntajes.html` y `puntajes.js` muestran los rankings de los juegos. `script.js` está dentro de la carpeta, aunque actualmente no está vinculado desde las páginas HTML.
+
+## Tecnologías utilizadas y principales funcionalidades
+
+El sitio está desarrollado con HTML, CSS y JavaScript. No utiliza un framework. JavaScript se encarga de las reglas, los turnos, los temporizadores, la interacción con los elementos HTML y las consultas a la API.
+
+Entre sus funcionalidades se encuentran:
+
+- Navegación entre las páginas del sitio.
+- Tiradas aleatorias y detección de combinaciones en Dados Póker.
+- Creación y administración de un mazo de cartas en Blackjack.
+- Ruleta animada, preguntas de opción múltiple y temporizador en Trivia.
+- Actualización de puntajes y rankings.
+- Guardado de récords y rankings con `localStorage`, para que se conserven en el navegador entre visitas.
+- Organización visual común mediante una hoja de estilos compartida.
+
+Para probar el sitio, se puede iniciar desde `index.html` usando un servidor local, como Live Server en Visual Studio Code. Esto permite probar la consulta a la API desde el navegador.
+
+## API utilizada
+
+Para las preguntas se utiliza la API pública [Open Trivia Database](https://opentdb.com/api_config.php). La consulta se realiza desde `juegopreguntas.js` con `fetch()` y `async/await`. Para el uso realizado en este proyecto no se requiere una API key.
+
+La ruleta selecciona una categoría y el juego usa su identificador para solicitar una pregunta de opción múltiple. Las categorías y sus identificadores son:
+
+- General: 9
+- Cine: 11
+- Música: 12
+- Videojuegos: 15
+- Ciencia: 17
+- Deportes: 21
+- Geografía: 22
+- Historia: 23
+
+La API devuelve los datos en formato JSON. El juego utiliza principalmente `category`, `question`, `correct_answer` e `incorrect_answers`. JavaScript mezcla la respuesta correcta con las tres incorrectas y crea los botones de respuesta. Si la consulta no devuelve una pregunta, el juego muestra un mensaje para indicarlo.
+
+## Principales decisiones técnicas
+
+Se eligió separar los juegos en distintos archivos HTML y JavaScript para que cada uno tuviera su propia estructura y lógica. La hoja CSS compartida mantiene una identidad visual de casino en todo el sitio.
+
+En Dados Póker, las combinaciones se representan con elementos `div` y se iluminan desde JavaScript cuando son posibles. Los puntajes se calculan a partir de la cantidad de veces que cada jugador logra una combinación y del valor asignado a esa categoría.
+
+En Blackjack, el mazo se crea con los cuatro palos y trece valores. Al repartir una carta, esta se elimina del arreglo del mazo para no repetirla durante esa partida.
+
+En Trivia, la API recibe un identificador de categoría, de modo que la pregunta corresponda a lo que salió en la ruleta. Los rankings y récords de cada juego se guardan por separado en `localStorage`.
+
+## Declaración de uso de IA
+
+### Germán
+
+Se utilizaron ChatGPT, OpenAI Codex, SeaArt y GitHub Copilot durante distintas etapas del desarrollo. También se probaron Grok y ChatGPT para crear las imágenes de los dados, pero los resultados no fueron los esperados.
+
+ChatGPT y Codex se usaron para consultar las reglas de Dados Póker, pensar la lógica del juego, explicar partes del JavaScript y buscar errores. Entre los problemas que se consultaron estuvieron el error que producía dado-undefined.png, el congelamiento de la página al tirar los dados y el error al actualizar los puntajes. También se consultó cómo guardar récords en localStorage, mostrar el récord en el HTML y permitir cambiar los nombres de los jugadores al terminar la partida.
+
+Las sugerencias recibidas se revisaron y ajustaron para que el código fuera comprensible para el grupo. Por ejemplo, algunas propuestas utilizaban métodos que no se habían visto en clase, como indexOf, Object.keys, dataset y contains. Se decidió usar alternativas más simples con ciclos y comparaciones directas. También se eligieron elementos div para mostrar las combinaciones, en lugar de la tabla que se había sugerido.
+
+La IA propuso una primera versión del CSS y una paleta de colores. Luego se ajustaron manualmente los estilos para acercarlos a la temática de casino y distribuir la página en columnas. También se decidió usar rem y porcentajes para las medidas, y evitar algunas propiedades que no se querían utilizar, como gap, cursor y las consultas de pantalla. Se consultó cómo mantener las instrucciones a la derecha y cómo ordenar la mesa de Blackjack y las respuestas de Trivia para que los controles quedaran más accesibles.
+
+También se consultó cómo simplificar el cartel final del juego de dados. Se decidió quitar algunos atributos de accesibilidad del HTML del cartel para mantener el marcado más sencillo.
+
+Para crear las imágenes de los dados se utilizó SeaArt. En algunos commits se usó GitHub Copilot para ayudar a redactar sus descripciones.
+
+### Juan
+
+Se utilizó principalmente como asistencia para desarrollar los juegos de BlackJack y Ruleta de Trivia, adjunte las clases dadas para poder realizar consultas sobre los contenidos vistos durante la cursada y detectar errores en el código. Para el BlackJack se utilizó IA para organizar la lógica del juego, y se le pidieron fuentes para el mazo de cartas. Se decidió utilizar un mazo de cartas de dominio público. También se realizaron modificaciones y correcciones al código propuesto después de probar el funcionamiento del juego.
 
 Para el juego de preguntas se utilizó IA para trabajar con la API Open Trivia Database y entender cómo procesar la información recibida. La primera versión hecha obtenía preguntas aleatorias y posteriormente decidí modificar la mecánica para incorporar la ruleta de categorías y reforzar la estética de casino del sitio.
 
