@@ -3,7 +3,7 @@
 // ==============================
 
 //caras posibles de los dados
-let caras = ["9", "10", "J", "q", "k", "a"];
+let caras = ["9", "10", "j", "q", "k", "a"];
 
 //valores default de los dados
 let dados = ["9","9","9","9","9"];
