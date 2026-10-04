@@ -54,12 +54,13 @@ const btnEnviar = document.querySelector("#enviarNombres");
 const btnComenzar = document.querySelector("#comenzar");
 const btnTirar = document.querySelector("#tirar");
 const btnReiniciar = document.querySelector("#reiniciar");
+const btncambiarJugadores = document.querySelector("#cambiarJugadores");
 
 let textoTurno = document.querySelector("#turno");
 let textoTiradas = document.querySelector("#tiradas");
 let textoResultado = document.querySelector("#resultado");
 let formularioNombres = document.querySelector("#formularioNombres");
-let textoRecord = document.querySelector("#record-dados")
+let textoRecord = document.querySelector("#record-dados");
 
 //el botón Enviar se habilita cuando los dos nombres tienen texto
 formularioNombres.addEventListener("input", () => {
@@ -538,6 +539,32 @@ document.querySelector("#salir").addEventListener("click", () => {
     btnComenzar.disabled = false;
     document.querySelector("#mensajeJuego").innerText = "Nombres guardados. Presionen Comenzar a jugar cuando estén listos.";
     textoTurno.innerText = "Nombres: " + jugadores[0] + " y " + jugadores[1];  
+});
+btncambiarJugadores.addEventListener("click", () => {
+    reiniciarPuntajes();
+
+    juegoIniciado = false;
+    jugadores = ["Jugador 1", "Jugador 2"];
+
+    document.querySelector("#nombre1").value = "";
+    document.querySelector("#nombre2").value = "";
+
+    document.querySelector("#encabezadoJ1").innerText = "Jugador 1";
+    document.querySelector("#encabezadoJ2").innerText = "Jugador 2";
+
+    formularioNombres.hidden = false;
+    btnEnviar.disabled = true;
+
+    btnComenzar.hidden = false;
+    btnComenzar.disabled = true;
+    btnComenzar.innerText = "Comenzar a jugar";
+
+    btnComenzar.hidden = true;
+    document.querySelector("#cartelFinal").hidden = true;
+    document.querySelector("#resultadoFinal").innerText = "";
+
+    textoTurno.innerText = "Ingresen los nombres para comenzar";
+    document.querySelector("#mensajeJuego").innerText = "Completen los nombres de los nuevos jugadores"
 });
 
 //Guardar y mostrar record PROVISORIO

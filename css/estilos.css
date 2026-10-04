@@ -215,47 +215,72 @@ margin: 0.25rem;
     margin: 0.4rem;
 }
 /*ESTILOS BLACKJACK*/
-#cartas-crupier,
-#cartas-jugador {
-order: 2;
-width: 49%;
-min-height: 6rem;
-margin-bottom: 0.4rem;
-}
-#cartas-crupier img,
-#cartas-jugador img {
-    width: 6rem;
-    height: auto;
-    margin: 0 0.4rem 0.5rem 0;
-}
+/* ESTILOS BLACKJACK */
 #mesa {
+    order: 1;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: flex-start;
+    width: 66%;
+    min-width: 36rem;
 }
-#mesa > h2 {
-    order: 1;
+
+#formulario-blackjack,
+#nombre-blackjack {
+    width: 100%;
+}
+
+.zonaMano {
     width: 49%;
-    margin: 0 0 0 0.5rem;
+    min-width: 15rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: #17231f;
+    border: 0.0625rem solid #c9a64a;
+    border-radius: 0.5rem;
 }
+
+.zonaMano h2 {
+    margin: 0 0 0.5rem;
+}
+
+#cartas-crupier,
+#cartas-jugador {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 100%;
+    max-height: 12rem;
+    min-height: 6rem;
+    overflow-y: auto;
+}
+
+#cartas-crupier img,
+#cartas-jugador img {
+    width: 4rem;
+    height: auto;
+    margin: 0 0.3rem 0.4rem 0;
+}
+
 #puntaje-crupier,
 #puntaje-jugador {
-    order: 3;
-    width: 49%;
-    margin: 0.25rem 0;
+    margin: 0.4rem 0 0;
+    padding: 0.4rem;
+    background: #203a32;
+    border-radius: 0.25rem;
 }
+
 #resultado-blackjack,
 #racha-blackjack,
 #record-blackjack {
-    order: 4;
     width: 100%;
     margin: 0.35rem 0;
 }
+
 #pedir,
 #plantarse,
 #nueva-partida {
-    order: 5;
     width: 32%;
     margin: 0.25rem 0;
     padding: 0.5rem 0.25rem;
@@ -310,11 +335,15 @@ margin-bottom: 0.4rem;
 }
 #tiempo,
 #puntaje,
-#record-trivia,
+#record-trivia, #record-blackjack, #record-dados,
 #ronda,
 #puntaje-crupier,
 #puntaje-jugador {
     background: #17231f;
     border-radius: 0.25rem;
     padding: 0.5rem;
+}
+/*INDEX*/
+#intro {
+    width: 68%;
 }

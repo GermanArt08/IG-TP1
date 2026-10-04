@@ -58,28 +58,31 @@
                 <p id="nombre-blackjack">
                     Ingresá tu nombre para empezar a jugar.
                 </p>
-                <h2>Crupier</h2>
-                <div id="cartas-crupier">
+                
+                <div id="zonaCrupier" class="zonaMano">
+                    <h2>Crupier</h2>
+                    <div id="cartas-crupier">
+                    </div>
+                    <p id="puntaje-crupier">
+                        Puntaje del crupier: 0
+                    </p>
                 </div>
-                <p id="puntaje-crupier">
-                    Puntaje del crupier: 0
-                </p>
 
-                <h2>Jugador</h2>
-
-                <div id="cartas-jugador">
+                <div id="zonaJugador" class="zonaMano">
+                    <h2>Jugador</h2>
+                    <div id="cartas-jugador">
+                    </div>
+                    <p id="puntaje-jugador">
+                        Puntaje del jugador: 0
+                    </p>
+                    <p id="resultado-blackjack"></p>
+                    <p id="racha-blackjack">
+                        Racha actual: 0
+                    </p>
+                    <p id="record-blackjack">
+                        Record de victorias consecutivas: 0
+                    </p>
                 </div>
-                <p id="puntaje-jugador">
-                    Puntaje del jugador: 0
-                </p>
-                <p id="resultado-blackjack"></p>
-                <p id="racha-blackjack">
-                    Racha actual: 0
-                </p>
-                <p id="record-blackjack">
-                    Record de victorias consecutivas: 0
-                </p>
-
                 <button id="pedir" type="button">Pedir carta</button>
                 <button id="plantarse" type="button">Plantarse</button>
                 <button id="nueva-partida" type="button">Nueva Partida</button>
